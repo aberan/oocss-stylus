@@ -1,0 +1,411 @@
+/* functions */
+px_rem(n)
+  bf = base_font_size is defined ? base_font_size : 29
+  return unit(n, 'px') unit((n / bf), 'rem')
+
+non_zero_unit(n)
+  if type(n) is not 'unit'
+    return false
+  else
+    if unit(n) is '' && n is not 0
+      return true
+    else
+      return false
+
+render_shortcut(args)
+  fallback = rem = ''
+
+  for n in args
+    if n == 'auto'
+      fallback += ' 'n
+      rem += ' 'n
+    else
+      unless type(n) is 'ident'
+        fallback += ' '
+        rem += ' '
+        fallback += non_zero_unit(n) ? px_rem(n)[0] : n
+        rem += non_zero_unit(n) ? px_rem(n)[1] : n
+  return fallback rem
+
+vendor(prop, args)
+  //depending on prop append different vendor prefixes
+  if prop is 'border-radius'
+    {prop} args
+  else if prop is 'box-shadow'
+    -webkit-{prop} args
+    {prop} args
+  else if prop is 'box-sizing'
+    -webkit-{prop} args
+    -moz-{prop} args
+    {prop} args
+  else if prop is 'transition'
+    -webkit-{prop} args
+    {prop} args
+
+rendor_vendor_prefixes(args)
+  arguments = ''
+  for n in args
+    if type(n) is 'unit'
+      arguments += ' '
+      arguments += non_zero_unit(n) ? px_rem(n)[1] : n
+    else
+      arguments += ' '
+      arguments += n
+
+  return arguments
+
+_color(n)
+  arguments = ''
+  fallback = ''
+
+  if n is a 'rgba'
+    if alpha(n) is not 1
+      r = red(n)
+      g = green(n)
+      bl = blue(n)
+      fallback = rgb(r,g,bl)
+      arguments = n
+    else
+      arguments = n
+      fallback = n
+  else
+    arguments = n
+    fallback = n
+
+  return fallback arguments
+
+_background(args)
+  arguments = ''
+  fallback = ''
+
+  for n in args
+    if typeof(n) is not 'unit'
+      if n is a 'rgba'
+        if alpha(n) is not 1
+          r = red(n)
+          g = green(n)
+          bl = blue(n)
+          fallback += ' 'rgb(r,g,bl)
+          arguments += ' 'n
+        else
+          arguments += ' 'n
+          fallback += ' 'n
+      else
+        arguments += ' 'n
+        fallback += ' 'n
+
+  return fallback arguments
+
+_border(args)
+  arguments = ''
+  fallback = ''
+
+  for n in args
+    if n is a 'rgba'
+      if alpha(n) is not 1
+        r = red(n)
+        g = green(n)
+        bl = blue(n)
+        fallback += ' 'rgb(r,g,bl)
+        arguments += ' 'n
+      else
+        arguments += ' 'n
+        fallback += ' 'n
+    else
+      arguments += ' 'n
+      fallback += ' 'n
+
+  return fallback arguments
+
+_rgba_exists(args)
+  rgba_req = false
+
+  for n in args
+    if typeof(n) is 'rgba'
+      if alpha(n) is not 1
+        rgba_req = true
+
+  return rgba_req
+
+/* mixins */
+background(args...)
+  ret = _background( args )
+
+  if _rgba_exists(args)
+    background unquote( ret[0] )
+    background unquote( ret[1] )
+  else
+    background unquote( ret[1] )
+
+font-size(n)
+  if non_zero_unit(n)
+    font-size px_rem(n)[0]
+    font-size px_rem(n)[1]
+  else
+    font-size n
+
+height(n)
+  if non_zero_unit(n)
+    height px_rem(n)[0]
+    height px_rem(n)[1]
+  else
+    height n
+
+max-height(n)
+  if non_zero_unit(n)
+    max-height px_rem(n)[0]
+    max-height px_rem(n)[1]
+  else
+    max-height n
+
+min-height(n)
+  if non_zero_unit(n)
+    min-height px_rem(n)[0]
+    min-height px_rem(n)[1]
+  else
+    min-height n
+
+width(n)
+  if non_zero_unit(n)
+    width px_rem(n)[0]
+    width px_rem(n)[1]
+  else
+    width n
+
+top(n)
+  if non_zero_unit(n)
+    top px_rem(n)[0]
+    top px_rem(n)[1]
+  else
+    top n
+
+right(n)
+  if non_zero_unit(n)
+    right px_rem(n)[0]
+    right px_rem(n)[1]
+  else
+    right n
+
+bottom(n)
+  if non_zero_unit(n)
+    bottom px_rem(n)[0]
+    bottom px_rem(n)[1]
+  else
+    bottom n
+
+left(n)
+  if non_zero_unit(n)
+    left px_rem(n)[0]
+    left px_rem(n)[1]
+  else
+    left n
+
+max-width(n)
+  if non_zero_unit(n)
+    max-width px_rem(n)[0]
+    max-width px_rem(n)[1]
+  else
+    max-width n
+
+min-width(n)
+  if non_zero_unit(n)
+    min-width px_rem(n)[0]
+    min-width px_rem(n)[1]
+  else
+    min-width n
+
+border(n, args...)
+  if non_zero_unit(n)
+    border px_rem(n)[0] args
+    border px_rem(n)[1] args
+  else
+    border n args
+
+border-top(n, args...)
+  ret = _border( args )
+
+  if _rgba_exists(args)
+    if non_zero_unit(n)
+      border-top px_rem(n)[0] unquote( ret[0] )
+      border-top px_rem(n)[1] unquote( ret[1] )
+    else
+      border-top n unquote( ret[0] )
+      border-top n unquote( ret[1] )
+  else
+    if non_zero_unit(n)
+      border-top px_rem(n)[0] unquote( ret[1] )
+      border-top px_rem(n)[1] unquote( ret[1] )
+    else
+      border-top n unquote( ret[1] )
+
+border-right(n, args...)
+  ret = _border( args )
+
+  if _rgba_exists(args)
+    if non_zero_unit(n)
+      border-right px_rem(n)[0] unquote( ret[0] )
+      border-right px_rem(n)[1] unquote( ret[1] )
+    else
+      border-right n unquote( ret[0] )
+      border-right n unquote( ret[1] )
+  else
+    if non_zero_unit(n)
+      border-right px_rem(n)[0] unquote( ret[1] )
+      border-right px_rem(n)[1] unquote( ret[1] )
+    else
+      border-right n unquote( ret[1] )
+
+border-bottom(n, args...)
+  ret = _border( args )
+
+  if _rgba_exists(args)
+    if non_zero_unit(n)
+      border-bottom px_rem(n)[0] unquote( ret[0] )
+      border-bottom px_rem(n)[1] unquote( ret[1] )
+    else
+      border-bottom n unquote( ret[0] )
+      border-bottom n unquote( ret[1] )
+  else
+    if non_zero_unit(n)
+      border-bottom px_rem(n)[0] unquote( ret[1] )
+      border-bottom px_rem(n)[1] unquote( ret[1] )
+    else
+      border-bottom n unquote( ret[1] )
+
+border-left(n, args...)
+  ret = _border( args )
+
+  if _rgba_exists(args)
+    if non_zero_unit(n)
+      border-left px_rem(n)[0] unquote( ret[0] )
+      border-left px_rem(n)[1] unquote( ret[1] )
+    else
+      border-left n unquote( ret[0] )
+      border-left n unquote( ret[1] )
+  else
+    if non_zero_unit(n)
+      border-left px_rem(n)[0] unquote( ret[1] )
+      border-left px_rem(n)[1] unquote( ret[1] )
+    else
+      border-left n unquote( ret[1] )
+
+border-top-color(n)
+  ret = _color(n)
+
+  if _rgba_exists(n)
+    border-top-color ret[0]
+    border-top-color ret[1]
+  else
+    border-top-color ret[1]
+
+border-right-color(n)
+  ret = _color(n)
+
+  if _rgba_exists(n)
+    border-right-color ret[0]
+    border-right-color ret[1]
+  else
+    border-right-color ret[1]
+
+border-bottom-color(n)
+  ret = _color(n)
+
+  if _rgba_exists(n)
+    border-bottom-color ret[0]
+    border-bottom-color ret[1]
+  else
+    border-bottom-color ret[1]
+
+border-left-color(n)
+  ret = _color(n)
+
+  if _rgba_exists(n)
+    border-left-color ret[0]
+    border-left-color ret[1]
+  else
+    border-left-color ret[1]
+
+
+border-width(n, args...)
+  if non_zero_unit(n)
+    border px_rem(n)[0] args
+    border px_rem(n)[1] args
+  else
+    border n args
+
+
+padding-top(n)
+  if non_zero_unit(n)
+    padding-top px_rem(n)[0]
+    padding-top px_rem(n)[1]
+  else
+    padding-top n
+
+padding-right(n)
+  if non_zero_unit(n)
+    padding-right px_rem(n)[0]
+    padding-right px_rem(n)[1]
+  else
+    padding-right n
+
+padding-bottom(n)
+  if non_zero_unit(n)
+    padding-bottom px_rem(n)[0]
+    padding-bottom px_rem(n)[1]
+  else
+    padding-bottom n
+
+padding-left(n)
+  if non_zero_unit(n)
+    padding-left px_rem(n)[0]
+    padding-left px_rem(n)[1]
+  else
+    padding-left n
+
+margin-top(n)
+  if non_zero_unit(n)
+    margin-top px_rem(n)[0]
+    margin-top px_rem(n)[1]
+  else
+    margin-top n
+
+margin-right(n)
+  if non_zero_unit(n)
+    margin-right px_rem(n)[0]
+    margin-right px_rem(n)[1]
+  else
+    margin-right n
+
+margin-bottom(n)
+  if non_zero_unit(n)
+    margin-bottom px_rem(n)[0]
+    margin-bottom px_rem(n)[1]
+  else
+    margin-bottom n
+
+margin-left(n)
+  if non_zero_unit(n)
+    margin-left px_rem(n)[0]
+    margin-left px_rem(n)[1]
+  else
+    margin-left n
+
+margin(args...)
+  margin unquote(render_shortcut(args)[0])
+  margin unquote(render_shortcut(args)[1])
+
+padding(args...)
+  padding unquote(render_shortcut(args)[0])
+  padding unquote(render_shortcut(args)[1])
+
+transition(args...)
+  vendor('transition', args)
+
+border-radius(args...)
+  vendor('border-radius', unquote( rendor_vendor_prefixes( args )))
+
+box-sizing(args)
+  vendor('box-sizing', args)
+
+box-shadow(args...)
+  vendor('box-shadow', unquote( rendor_vendor_prefixes( args )))
