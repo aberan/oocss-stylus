@@ -32,7 +32,7 @@ init:
 	@echo "${HR}"
 	@echo "Initialize node packages"
 	@echo "${HR}"
-	@cd tools; npm install; sudo npm install stylus -g
+	@cd tools; npm install; npm install stylus
 
 
 #

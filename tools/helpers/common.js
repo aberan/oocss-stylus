@@ -1,7 +1,7 @@
-var fs = require('fs.extra');
+var fs = require('../node_modules/fs.extra');
 var Html = require('html');
 var exec = require('child_process').exec;
-var handlebars = require('handlebars');
+var handlebars = require('../node_modules/handlebars');
 require('./handlebars.helpers.js').init(handlebars);
 require('./handlebars.include.js').init(handlebars);
 
