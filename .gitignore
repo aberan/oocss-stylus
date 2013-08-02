@@ -36,7 +36,6 @@ Icon?
 Thumbs.db
 *.sublime-workspace
 *.sublime-project
-/build
 npm-debug.log
 node_modules
 /testvagrant
