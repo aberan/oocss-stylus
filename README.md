@@ -1,4 +1,4 @@
 oocss-stylus
 ============
 
-A fork of https://github.com/stubbornella/oocss/wiki/Grids.
+A forky of https://github.com/stubbornella/oocss/wiki/Grids.
