@@ -7,15 +7,19 @@ var LOCALSITE_AJAX = {
 			url: args.url,
 			type: type,
 			data: args.params,
-			async: async,
-			success: function(response) {
+			async: async
+		})
+			.done( function(response) {
 				var response_json = $.parseJSON(response);
-				//args.callback[response_json.status](args.callback_params, response_json.args);
 				args.callback[response_json.status](response_json.args);
-			},
-			error: function(jqXHR, textStatus, errorThrown){
+			})
+			.fail( function(jqXHR, textStatus, errorThrown){
 				args.callback['_error'](args.params, {msg: textStatus+' - '+errorThrown});
-			}
-		} ); // \ajax
+			})
+			.complete( function() {
+				if ( typeof args.callback['_complete'] == 'function' ) {
+					args.callback['_complete']();
+				}
+			});
 	} /* \LOCALSITE_AJAX._init */
 };

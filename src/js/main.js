@@ -7,29 +7,8 @@
 	var LOCALSITE = {
 		common: {
 			_init: function(){
-				/*if($('html').hasClass('lt-ie9')) {
-					fbg.hideFOUT('onload');
-				}*/
-
-				//init handle for nav
-				var args = {
-					el: $('#handle'),
-					drawer: $('.drawer'),
-					drawer_inner: $('.drawer-inner')
-				};
-
-				new nxnw.handle(args);
-				var x = 'sada';
-				var y = 's';
-
 			}  /* \LOCALSITE.common.init */
-		}, /* \LOCALSITE.common */
-
-		home : {
-			_init : function() {
-
-			} /* \LOCALSITE._home.init */
-		} /* \LOCALSITE._home */
+		} /* \LOCALSITE.common */
 	}; /* \LOCALSITE */
 
 	var DOMEXEC = {

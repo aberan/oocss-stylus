@@ -1,11 +1,11 @@
 /* fonts */
 /*@font-face {
 	font-family: 'm-s500';
-	src: url('/css/fonts/museosans_500-webfont.eot');
-	src: url('/css/fonts/museosans_500-webfont.eot?') format('☺'),
-		 url('/css/fonts/museosans_500-webfont.woff') format('woff'),
-		 url('/css/fonts/museosans_500-webfont.ttf') format('truetype'),
-		 url('/css/fonts/museosans_500-webfont.svg#lg') format('svg');
+	src: url('css/fonts/museosans_500-webfont.eot');
+	src: url('css/fonts/museosans_500-webfont.eot?') format('☺'),
+		 url('css/fonts/museosans_500-webfont.woff') format('woff'),
+		 url('css/fonts/museosans_500-webfont.ttf') format('truetype'),
+		 url('css/fonts/museosans_500-webfont.svg#lg') format('svg');
 		font-weight: normal;
 		font-style: normal;
 }*/
