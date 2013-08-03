@@ -51,8 +51,11 @@ function compile_stylus_dir(src, dir, build_dir){
 
 	fs.readdirSync( src_path ).forEach( function ( file ) {
 		var src_file = src_path + '/' + file;
-		//compile stylus
-		exec('stylus '+ src_file + ' -o ' +build_dir);
+		//make sure we are looking at a .styl file
+		if ( /^(.)+\.styl/.test( file ) ) {
+			//compile stylus
+			exec('stylus '+ src_file + ' -o ' +build_dir);
+		}
 	});
 }
 
