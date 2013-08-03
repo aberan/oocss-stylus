@@ -213,6 +213,7 @@ function rebuild_stylus( stylus ) {
 }
 
 function rebuild_handlebars( dir, template_file ) {
+  console.log('Compiling handlebars template files ...');
   common.hb_compile_dir(src, dir, build + '/js', template_file);
 }
 

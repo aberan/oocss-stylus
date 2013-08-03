@@ -19,21 +19,25 @@ fs.mkdirSync(build, '755');
 
 //recursively copy over build dirs config.build_dir via for loop
 for ( var i = 0, z = dirs.length; i < z; i++ ) {
+  console.log('Building build dirs...');
   add_dir( src, build, dirs[i] );
 }
 
 //parse templates
 for ( var i = 0, z = templates.length; i < z; i++ ) {
+  console.log('Parsing template files...');
   common.parse(src, build, templates[i]);
 }
 
 //compile stylus
 for ( var i = 0, z = stylus.length; i < z; i++ ) {
+  console.log('Compiling stylus files...');
   common.compile_dir(src, stylus[i], build + '/css');
 }
 
 //compile handlebar templates
 for ( var i = 0, z = handlebars.length; i < z; i++ ) {
+  console.log('Compiling handlebar template files...');
   common.hb_compile_dir(src, handlebars[i], build + '/js', handlebars_template);
 }
 
