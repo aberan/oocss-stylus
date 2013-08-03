@@ -28,11 +28,10 @@ bw: build watch
 init:
 	@echo "${HR}"
 	@echo "INSTALL NEEDED TOOLS FOR BUILD"
-	@echo "THIS COMMAND MUST BE LAUNCHED IN ROOT MODE"
 	@echo "${HR}"
 	@echo "Initialize node packages"
 	@echo "${HR}"
-	@cd tools; npm install; npm install stylus
+	@cd tools; npm install;
 
 
 #
