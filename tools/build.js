@@ -8,6 +8,8 @@ var build = config.build;
 var dirs = config.build_dir;
 var templates = config.template_dir;
 var stylus = config.stylus_dir;
+var handlebars = config.handlebars_dir;
+var handlebars_template = config.handlebars_template;
 
 //nuke build dir
 fs.rmrfSync( build );
@@ -28,6 +30,11 @@ for ( var i = 0, z = templates.length; i < z; i++ ) {
 //compile stylus
 for ( var i = 0, z = stylus.length; i < z; i++ ) {
   common.compile_dir(src, stylus[i], build + '/css');
+}
+
+//compile handlebar templates
+for ( var i = 0, z = handlebars.length; i < z; i++ ) {
+  common.hb_compile_dir(src, handlebars[i], build + '/js', handlebars_template);
 }
 
 function add_dir(src, build, path) {

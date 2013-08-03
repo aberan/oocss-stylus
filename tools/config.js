@@ -8,7 +8,9 @@ var config = {
 	template_dir : ['templates'],
 	template_inc : ['includes'],
 	stylus_dir : ['styl'],
-	stylus_mixins : ['styl/mixins']
+	stylus_mixins : ['styl/mixins'],
+	handlebars_dir : ['handlebars'],
+	handlebars_template : ['template.js']
 };
 
 module.exports = config;

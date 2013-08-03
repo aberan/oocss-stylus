@@ -63,6 +63,9 @@ function compile_stylus(src_file, build_dir){
 	exec('stylus '+ src_file + ' -o ' +build_dir);
 }
 
+function compile_handlebars(src, dir, build_dir, template_file) {
+	exec('handlebars ' + src + dir + '/*.handlebars -f ' + build_dir + '/' + template_file + ' -k each -k if -k unless');
+}
 
 
 module.exports = {
@@ -70,5 +73,6 @@ module.exports = {
 		parse_single : parse_single_template,
 		fs : fs,
 		compile_dir: compile_stylus_dir,
-		compile : compile_stylus
+		compile : compile_stylus,
+		hb_compile_dir : compile_handlebars
 };
