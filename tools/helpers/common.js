@@ -64,7 +64,9 @@ function compile_stylus(src_file, build_dir){
 }
 
 function compile_handlebars(src, dir, build_dir, template_file) {
-	exec('handlebars ' + src + dir + '/*.handlebars -f ' + build_dir + '/' + template_file + ' -k each -k if -k unless');
+	var src_dir = src + '/' + dir;
+	var build_file = build_dir + '/' + template_file;
+	exec('handlebars ' + src_dir + ' -f ' + build_file + ' -k each -k if -k unless');
 }
 
 

@@ -10,6 +10,8 @@ var templates = config.template_dir;
 var template_includes = config.template_inc;
 var stylus = config.stylus_dir;
 var mixins = config.stylus_mixins;
+var handlebars = config.handlebars_dir;
+var handlebars_template = config.handlebars_template;
 
 
 
@@ -38,6 +40,10 @@ for ( var i = 0, z = mixins.length; i < z; i++ ) {
   add_mixins_dir( src + '/' + mixins[i] );
 }
 
+//watch handlebars dir
+for ( var i = 0, z = handlebars.length; i < z; i++ ) {
+  add_handlebars_dir( src + '/' + handlebars[i] );
+}
 
 
 
@@ -71,6 +77,15 @@ function add_mixins_dir(dir) {
     rebuild_stylus( stylus );
   });
 }
+
+function add_handlebars_dir(dir) {
+  fs.watch(dir, function() {
+    rebuild_handlebars( dir, handlebars_template );
+  });
+}
+
+
+
 
 /* watch callbacks */
 function watch_template_handle(e, path, file) {
@@ -195,6 +210,10 @@ function rebuild_stylus( stylus ) {
     console.log('Rebuilding stylus files ...');
     common.compile_dir(src, stylus[i], build + '/css');
   }
+}
+
+function rebuild_handlebars( dir, template_file ) {
+  common.hb_compile_dir(src, dir, build + '/js', template_file);
 }
 
 function rebuild_templates( templates ) {
