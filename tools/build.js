@@ -18,27 +18,28 @@ fs.rmrfSync( build );
 fs.mkdirSync(build, '755');
 
 //recursively copy over build dirs config.build_dir via for loop
+console.log('Building build dirs...');
 for ( var i = 0, z = dirs.length; i < z; i++ ) {
-  console.log('Building build dirs...');
   add_dir( src, build, dirs[i] );
 }
 
 //parse templates
+console.log('Parsing template files...');
 for ( var i = 0, z = templates.length; i < z; i++ ) {
-  console.log('Parsing template files...');
   common.parse(src, build, templates[i]);
 }
 
 //compile stylus
+console.log('Compiling stylus files...');
 for ( var i = 0, z = stylus.length; i < z; i++ ) {
-  console.log('Compiling stylus files...');
   common.compile_dir(src, stylus[i], build + '/css');
 }
 
 //compile handlebar templates
+console.log('Compiling handlebar template files...');
 for ( var i = 0, z = handlebars.length; i < z; i++ ) {
-  console.log('Compiling handlebar template files...');
-  common.hb_compile_dir(src, handlebars[i], build + '/js', handlebars_template);
+  var src_dir = src + '/' + handlebars[i];
+  common.hb_compile_dir(src_dir, build + '/js', handlebars_template);
 }
 
 function add_dir(src, build, path) {
