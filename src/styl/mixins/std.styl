@@ -1,6 +1,6 @@
 /* functions */
 px_rem(n)
-  bf = base_font_size is defined ? base_font_size : 29
+  bf = base_font_size is defined ? base_font_size : 16
   return unit(n, 'px') unit((n / bf), 'rem')
 
 non_zero_unit(n)
@@ -41,6 +41,14 @@ vendor(prop, args)
   else if prop is 'transition'
     -webkit-{prop} args
     {prop} args
+  else if prop is 'font-smoothing'
+    -webkit-{prop} args
+    -moz-{prop} args
+    {prop} args
+  else if prop is 'transform'
+    -webkit-{prop} args
+    -ms-{prop} args
+    {prop} args
 
 rendor_vendor_prefixes(args)
   arguments = ''
@@ -48,11 +56,14 @@ rendor_vendor_prefixes(args)
     if type(n) is 'unit'
       arguments += ' '
       arguments += non_zero_unit(n) ? px_rem(n)[1] : n
-    else
+    else if type(n) is 'ident' or type(n) is 'rgba'
       arguments += ' '
+      arguments += n
+    else //literal
       arguments += n
 
   return arguments
+
 
 _color(n)
   arguments = ''
@@ -93,6 +104,12 @@ _background(args)
       else
         arguments += ' 'n
         fallback += ' 'n
+    else if typeof(n) is 'string'
+      arguments += ' 'unquote(n)
+      fallback += ' 'unquote(n)
+    else
+      arguments += ' 'n
+      fallback += ' 'n
 
   return fallback arguments
 
@@ -127,6 +144,33 @@ _rgba_exists(args)
 
   return rgba_req
 
+_calc()
+  args = ()
+  i = 0
+  for prop in arguments
+    if i is not 0
+      if typeof(prop) is 'unit'
+        if unit(prop) is ''
+          prop = px_rem(prop)[1]
+      push(args, prop)
+    i = i + 1
+
+  prop = join(' ', args)
+  vendors = webkit
+
+  if current-property
+      for prefix in vendors
+          arguments = unquote(prop)
+          add-property(current-property[0], s('-%s-calc(%s)', prefix, arguments))
+      s('calc(%s)', arguments)
+  else
+      error('calc() must be used within a property')
+
+_mq(n)
+  ems = n / 16
+  output = unquote('screen and (min-width: '+ems+'em)')
+  unquote(s('%s', output))
+
 /* mixins */
 background(args...)
   ret = _background( args )
@@ -137,82 +181,159 @@ background(args...)
   else
     background unquote( ret[1] )
 
-font-size(n)
-  if non_zero_unit(n)
-    font-size px_rem(n)[0]
-    font-size px_rem(n)[1]
+background-position(args...)
+  if args[0] is calc
+    background-position _calc(args)
   else
-    font-size n
+    n = args[0]
+    nn = args[1]
 
-height(n)
-  if non_zero_unit(n)
-    height px_rem(n)[0]
-    height px_rem(n)[1]
-  else
-    height n
+    if non_zero_unit(n) || non_zero_unit(nn)
+      background-position unquote(render_shortcut(args)[0])
+      background-position unquote(render_shortcut(args)[1])
+    else
+      background-position unquote(render_shortcut(args)[0])
 
-max-height(n)
-  if non_zero_unit(n)
-    max-height px_rem(n)[0]
-    max-height px_rem(n)[1]
-  else
-    max-height n
+font-size(args...)
+  n = args[0]
 
-min-height(n)
   if non_zero_unit(n)
-    min-height px_rem(n)[0]
-    min-height px_rem(n)[1]
+    font-size unquote(render_shortcut(args)[0])
+    font-size unquote(render_shortcut(args)[1])
   else
-    min-height n
+    font-size unquote(render_shortcut(args)[0])
 
-width(n)
-  if non_zero_unit(n)
-    width px_rem(n)[0]
-    width px_rem(n)[1]
-  else
-    width n
 
-top(n)
-  if non_zero_unit(n)
-    top px_rem(n)[0]
-    top px_rem(n)[1]
+height(args...)
+  if args[0] is calc
+    height _calc(args)
   else
-    top n
+    n = args[0]
 
-right(n)
-  if non_zero_unit(n)
-    right px_rem(n)[0]
-    right px_rem(n)[1]
-  else
-    right n
+    if non_zero_unit(n)
+      height unquote(render_shortcut(args)[0])
+      height unquote(render_shortcut(args)[1])
+    else
+      height unquote(render_shortcut(args)[0])
 
-bottom(n)
-  if non_zero_unit(n)
-    bottom px_rem(n)[0]
-    bottom px_rem(n)[1]
-  else
-    bottom n
 
-left(n)
-  if non_zero_unit(n)
-    left px_rem(n)[0]
-    left px_rem(n)[1]
+max-height(args...)
+  if args[0] is calc
+    max-height _calc(args)
   else
-    left n
+    n = args[0]
 
-max-width(n)
-  if non_zero_unit(n)
-    max-width px_rem(n)[0]
-    max-width px_rem(n)[1]
-  else
-    max-width n
+    if non_zero_unit(n)
+      max-height unquote(render_shortcut(args)[0])
+      max-height unquote(render_shortcut(args)[1])
+    else
+      max-height unquote(render_shortcut(args)[0])
 
-min-width(n)
-  if non_zero_unit(n)
-    min-width px_rem(n)[0]
-    min-width px_rem(n)[1]
+
+min-height(args...)
+  if args[0] is calc
+    min-height _calc(args)
   else
-    min-width n
+
+    n = args[0]
+
+    if non_zero_unit(n)
+      min-height unquote(render_shortcut(args)[0])
+      min-height unquote(render_shortcut(args)[1])
+    else
+      min-height unquote(render_shortcut(args)[0])
+
+
+width(args...)
+  if args[0] is calc
+    width _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      width unquote(render_shortcut(args)[0])
+      width unquote(render_shortcut(args)[1])
+    else
+      width unquote(render_shortcut(args)[0])
+
+
+top(args...)
+  if args[0] is calc
+    top _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      top unquote(render_shortcut(args)[0])
+      top unquote(render_shortcut(args)[1])
+    else
+      top unquote(render_shortcut(args)[0])
+
+
+right(args...)
+  if args[0] is calc
+    right _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      right unquote(render_shortcut(args)[0])
+      right unquote(render_shortcut(args)[1])
+    else
+      right unquote(render_shortcut(args)[0])
+
+
+bottom(args...)
+  if args[0] is calc
+    bottom _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      bottom unquote(render_shortcut(args)[0])
+      bottom unquote(render_shortcut(args)[1])
+    else
+      bottom unquote(render_shortcut(args)[0])
+
+
+left(args...)
+  if args[0] is calc
+    left _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      left unquote(render_shortcut(args)[0])
+      left unquote(render_shortcut(args)[1])
+    else
+      left unquote(render_shortcut(args)[0])
+
+
+max-width(args...)
+  if args[0] is calc
+    max-width _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      max-width unquote(render_shortcut(args)[0])
+      max-width unquote(render_shortcut(args)[1])
+    else
+      max-width unquote(render_shortcut(args)[0])
+
+
+min-width(args...)
+  if args[0] is calc
+    min-width _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      min-width unquote(render_shortcut(args)[0])
+      min-width unquote(render_shortcut(args)[1])
+    else
+      min-width unquote(render_shortcut(args)[0])
+
 
 border(n, args...)
   if non_zero_unit(n)
@@ -333,62 +454,171 @@ border-width(n, args...)
   else
     border n args
 
-
-padding-top(n)
-  if non_zero_unit(n)
-    padding-top px_rem(n)[0]
-    padding-top px_rem(n)[1]
+border-top-width(args...)
+  if args[0] is calc
+    border-top-width _calc(args)
   else
-    padding-top n
+    n = args[0]
 
-padding-right(n)
-  if non_zero_unit(n)
-    padding-right px_rem(n)[0]
-    padding-right px_rem(n)[1]
-  else
-    padding-right n
+    if non_zero_unit(n)
+      border-top-width unquote(render_shortcut(args)[0])
+      border-top-width unquote(render_shortcut(args)[1])
+    else
+      border-top-width unquote(render_shortcut(args)[0])
 
-padding-bottom(n)
-  if non_zero_unit(n)
-    padding-bottom px_rem(n)[0]
-    padding-bottom px_rem(n)[1]
+border-right-width(args...)
+  if args[0] is calc
+    border-right-width _calc(args)
   else
-    padding-bottom n
+    n = args[0]
 
-padding-left(n)
-  if non_zero_unit(n)
-    padding-left px_rem(n)[0]
-    padding-left px_rem(n)[1]
-  else
-    padding-left n
+    if non_zero_unit(n)
+      border-right-width unquote(render_shortcut(args)[0])
+      border-right-width unquote(render_shortcut(args)[1])
+    else
+      border-right-width unquote(render_shortcut(args)[0])
 
-margin-top(n)
-  if non_zero_unit(n)
-    margin-top px_rem(n)[0]
-    margin-top px_rem(n)[1]
+border-bottom-width(args...)
+  if args[0] is calc
+    border-bottom-width _calc(args)
   else
-    margin-top n
+    n = args[0]
 
-margin-right(n)
-  if non_zero_unit(n)
-    margin-right px_rem(n)[0]
-    margin-right px_rem(n)[1]
-  else
-    margin-right n
+    if non_zero_unit(n)
+      border-bottom-width unquote(render_shortcut(args)[0])
+      border-bottom-width unquote(render_shortcut(args)[1])
+    else
+      border-bottom-width unquote(render_shortcut(args)[0])
 
-margin-bottom(n)
-  if non_zero_unit(n)
-    margin-bottom px_rem(n)[0]
-    margin-bottom px_rem(n)[1]
+border-left-width(args...)
+  if args[0] is calc
+    border-left-width _calc(args)
   else
-    margin-bottom n
+    n = args[0]
 
-margin-left(n)
-  if non_zero_unit(n)
-    margin-left px_rem(n)[0]
-    margin-left px_rem(n)[1]
+    if non_zero_unit(n)
+      border-left-width unquote(render_shortcut(args)[0])
+      border-left-width unquote(render_shortcut(args)[1])
+    else
+      border-left-width unquote(render_shortcut(args)[0])
+
+padding-top(args...)
+  if args[0] is calc
+    padding-top _calc(args)
   else
-    margin-left n
+    n = args[0]
+
+    if non_zero_unit(n)
+      padding-top unquote(render_shortcut(args)[0])
+      padding-top unquote(render_shortcut(args)[1])
+    else
+      padding-top unquote(render_shortcut(args)[0])
+
+
+padding-right(args...)
+  if args[0] is calc
+    padding-right _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      padding-right unquote(render_shortcut(args)[0])
+      padding-right unquote(render_shortcut(args)[1])
+    else
+      padding-right unquote(render_shortcut(args)[0])
+
+
+padding-bottom(args...)
+  if args[0] is calc
+    padding-bottom _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      padding-bottom unquote(render_shortcut(args)[0])
+      padding-bottom unquote(render_shortcut(args)[1])
+    else
+      padding-bottom unquote(render_shortcut(args)[0])
+
+
+padding-left(args...)
+  if args[0] is calc
+    padding-left _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      padding-left unquote(render_shortcut(args)[0])
+      padding-left unquote(render_shortcut(args)[1])
+    else
+      padding-left unquote(render_shortcut(args)[0])
+
+
+margin-top(args...)
+  if args[0] is calc
+    margin-top _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      margin-top unquote(render_shortcut(args)[0])
+      margin-top unquote(render_shortcut(args)[1])
+    else
+      margin-top unquote(render_shortcut(args)[0])
+
+
+margin-right(args...)
+  if args[0] is calc
+    margin-right _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      margin-right unquote(render_shortcut(args)[0])
+      margin-right unquote(render_shortcut(args)[1])
+    else
+      margin-right unquote(render_shortcut(args)[0])
+
+
+margin-bottom(args...)
+  if args[0] is calc
+    margin-bottom _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      margin-bottom unquote(render_shortcut(args)[0])
+      margin-bottom unquote(render_shortcut(args)[1])
+    else
+      margin-bottom unquote(render_shortcut(args)[0])
+
+
+margin-left(args...)
+  if args[0] is calc
+    margin-left _calc(args)
+  else
+    n = args[0]
+
+    if non_zero_unit(n)
+      margin-left unquote(render_shortcut(args)[0])
+      margin-left unquote(render_shortcut(args)[1])
+    else
+      margin-left unquote(render_shortcut(args)[0])
+
+background-size(args...)
+  if args[0] is calc
+    background-size _calc(args)
+  else
+    n = args[0]
+    if typeof(n) is 'unit'
+      if non_zero_unit(n)
+        background-size unquote(render_shortcut(args)[0])
+        background-size unquote(render_shortcut(args)[1])
+      else
+        background-size unquote(render_shortcut(args)[0])
+    else
+      background-size args
+
 
 margin(args...)
   margin unquote(render_shortcut(args)[0])
@@ -399,13 +629,25 @@ padding(args...)
   padding unquote(render_shortcut(args)[1])
 
 transition(args...)
-  vendor('transition', args)
+  vendor('transition', arguments)
 
 border-radius(args...)
   vendor('border-radius', unquote( rendor_vendor_prefixes( args )))
 
 box-sizing(args)
-  vendor('box-sizing', args)
+  vendor('box-sizing', arguments)
+
+transform(args)
+  vendor('transform', arguments)
 
 box-shadow(args...)
-  vendor('box-shadow', unquote( rendor_vendor_prefixes( args )))
+  props = ()
+  for arg in arguments
+    push(props, (arg))
+  vendor('box-shadow', unquote( rendor_vendor_prefixes( props )))
+
+font-smoothing(args...)
+  props = ()
+  for arg in arguments
+    push(props, (arg))
+  vendor('font-smoothing', unquote( rendor_vendor_prefixes( props )))
