@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.png",
+				"*.ico",
+				".DS_Store",
+				"*.sublime-project",
+				"*.sublime-workspace",
+				".gitignore"
+			],
+			"folder_exclude_patterns":
+			[
+				"img",
+				"css/fonts"
+			],
+			"path": "/git.repos/PROJECT/src"
+		}
+	]
+}

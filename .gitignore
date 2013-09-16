@@ -34,8 +34,6 @@ thumbs.db
 .vagrant
 Icon?
 Thumbs.db
-*.sublime-workspace
-*.sublime-project
 npm-debug.log
 node_modules
 /testvagrant
