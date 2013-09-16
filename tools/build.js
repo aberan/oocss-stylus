@@ -10,6 +10,7 @@ var templates = config.template_dir;
 var stylus = config.stylus_dir;
 var handlebars = config.handlebars_dir;
 var handlebars_template = config.handlebars_template;
+var root_dir = config.root_dir;
 
 //nuke build dir
 fs.rmrfSync( build );
@@ -22,6 +23,14 @@ console.log('Building build dirs...');
 for ( var i = 0, z = dirs.length; i < z; i++ ) {
   add_dir( src, build, dirs[i] );
 }
+
+//copy over root dir
+fs.copyRecursive(src + '/' + root_dir, build+ '/', function (err) {
+  if (err) {
+    console.log(err);
+    throw err;
+  }
+});
 
 //parse templates
 console.log('Parsing template files...');
