@@ -140,15 +140,35 @@ function watch_handle(e, path, file) {
           }
           else { //legit, copy
             if ( e == 'rename' ) { //new file
-              fs.copy(src_file, build_file, function (err) {
-                if (err) {
-                  console.log(err);
-                  throw err;
-                }
-                console.log('added file: '+file);
-              });
+              console.log('new file');
+              if ( /\.(gif|png|jpg|jpeg|svg|svgz)$/.test( file ) ) { //binary file, check if exists in build dir, if so delete first before copying over
+                fs.exists(build_file, function (exists) {
+                  if ( exists ) {
+                    console.log('deleting existing image before copying over new image');
+                    //delete build file, then copy over updated image
+                    fs.unlinkSync(build_file);
+                  }
+                  fs.copy(src_file, build_file, function (err) {
+                    if (err) {
+                      console.log(err);
+                      throw err;
+                    }
+                    console.log('added file: '+file);
+                  });
+                });
+              }
+              else { // non-binary file, simply copy over
+                fs.copy(src_file, build_file, function (err) {
+                  if (err) {
+                    console.log(err);
+                    throw err;
+                  }
+                  console.log('added file: '+file);
+                });
+              }
             }
             else { //file updated
+              console.log('updated files');
               //delete existing file in build
               fs.unlinkSync(build_file);
               fs.copy(src_file, build_file, function (err) {
