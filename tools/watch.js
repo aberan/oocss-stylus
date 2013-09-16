@@ -12,6 +12,7 @@ var stylus = config.stylus_dir;
 var mixins = config.stylus_mixins;
 var handlebars = config.handlebars_dir;
 var handlebars_template = config.handlebars_template;
+var root = config.root_dir;
 
 
 
@@ -19,6 +20,11 @@ var handlebars_template = config.handlebars_template;
 for ( var i = 0, z = dirs.length; i < z; i++ ) {
   add_dir( src + '/' + dirs[i], dirs[i] );
 }
+
+//add root dir
+fs.watch(src + '/' + root, function(e, file) {
+  watch_root_handle(e, root, file);
+});
 
 //watch template dir
 for ( var i = 0, z = templates.length; i < z; i++ ) {
@@ -110,6 +116,75 @@ function watch_template_handle(e, path, file) {
   }
   else {
     console.log('template not provided');
+  }
+}
+
+function watch_root_handle(e, path, file) {
+
+  var src_file = src+'/'+path+'/'+file;
+  var build_file = build+'/'+file;
+
+  if (file) {
+    var stats;
+    fs.exists(src_file, function (exists) {
+      if ( exists ) {
+        stats = fs.statSync(src_file);
+        //dont copy the file if it is a system file
+        if ( /^\./.test( file ) ) {
+          console.log('system file, ignoring');
+        }
+        else { //legit, copy
+          if ( e == 'rename' ) { //new file
+            console.log('new file');
+            if ( /\.(gif|png|jpg|jpeg|svg|svgz)$/.test( file ) ) { //binary file, check if exists in build dir, if so delete first before copying over
+              fs.exists(build_file, function (exists) {
+                if ( exists ) {
+                  console.log('deleting existing image before copying over new image');
+                  //delete build file, then copy over updated image
+                  fs.unlinkSync(build_file);
+                }
+                fs.copy(src_file, build_file, function (err) {
+                  if (err) {
+                    console.log(err);
+                    throw err;
+                  }
+                  console.log('added file: '+file);
+                });
+              });
+            }
+            else { // non-binary file, simply copy over
+              fs.copy(src_file, build_file, function (err) {
+                if (err) {
+                  console.log(err);
+                  throw err;
+                }
+                console.log('added file: '+file);
+              });
+            }
+          }
+          else { //file updated
+            console.log('updated files');
+            //delete existing file in build
+            fs.unlinkSync(build_file);
+            fs.copy(src_file, build_file, function (err) {
+              if (err) {
+                console.log(err);
+                throw err;
+              }
+
+              console.log('updated file: '+file);
+            });
+          }
+        }
+      }
+      else { //removed
+        console.log('removed: '+file);
+        fs.rmrfSync( build+'/' + file );
+      }
+    });
+  }
+  else {
+    console.log('file not provided');
   }
 }
 

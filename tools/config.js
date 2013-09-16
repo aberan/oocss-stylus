@@ -10,7 +10,8 @@ var config = {
 	stylus_dir : ['styl'],
 	stylus_mixins : ['styl/mixins'],
 	handlebars_dir : ['handlebars'],
-	handlebars_template : 'handlebars-templates.js'
+	handlebars_template : 'handlebars-templates.js',
+	root_dir: 'root'
 };
 
 module.exports = config;

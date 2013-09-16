@@ -1,0 +1,11 @@
+/* TEAM */
+	UI Developer: [name]
+	Back-end Dev: [name]
+	UI Designer: [name]
+	Company: NXNW - http://nxnw.net
+
+
+/* SITE */
+	Doctype:HTML5
+	IDE: Sublime Text
+	Components: Drupal, Jquery, Modernizr, RequireJS, HTML5 Boilerplate, Foundation 4, Stylus
