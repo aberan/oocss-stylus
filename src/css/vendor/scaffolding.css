@@ -92,3 +92,17 @@ textarea {
     color: #000;
     padding: 0.2em 0;
 }
+
+/* ==========================================================================
+   NXNW setting font styles
+   ========================================================================== */
+body {
+  text-rendering: optimizeLegibility;
+}
+
+body,
+input {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}

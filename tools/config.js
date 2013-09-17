@@ -4,7 +4,7 @@ var config = {
 	src : 'src',
 	build : 'build',
 	build_dir : ['js', 'css', 'img'],
-	watch_dir : ['js', 'js/vendor', 'css', 'css/vendor', 'img'],
+	watch_dir : ['js', 'js/vendor', 'css', 'css/vendor', 'css/fonts', 'img'],
 	template_dir : ['templates'],
 	template_inc : ['includes'],
 	stylus_dir : ['styl'],
