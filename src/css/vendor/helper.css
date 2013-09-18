@@ -122,3 +122,11 @@
 .text-justify {
   text-align: justify;
 }
+
+.lean {
+  padding: 0;
+}
+
+.flush {
+  margin: 0;
+}
