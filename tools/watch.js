@@ -14,8 +14,6 @@ var handlebars = config.handlebars_dir;
 var handlebars_template = config.handlebars_template;
 var root = config.root_dir;
 
-
-
 //loop through all config.watch_dir and add watch_handler...
 for ( var i = 0, z = dirs.length; i < z; i++ ) {
   add_dir( src + '/' + dirs[i], dirs[i] );
@@ -50,13 +48,6 @@ for ( var i = 0, z = mixins.length; i < z; i++ ) {
 for ( var i = 0, z = handlebars.length; i < z; i++ ) {
   add_handlebars_dir( src + '/' + handlebars[i] );
 }
-
-//fire up livereload for build dir
-livereload = require('livereload');
-server = livereload.createServer();
-server.watch('./' + build);
-
-
 
 /* functions to init watch functionality */
 function add_dir(dir, path) {
