@@ -54,13 +54,13 @@ function compile_stylus_dir(src, dir, build_dir){
 		//make sure we are looking at a .styl file
 		if ( /^(.)+\.styl/.test( file ) ) {
 			//compile stylus
-			exec('stylus '+ src_file + ' -o ' +build_dir);
+			exec('stylus '+ src_file + ' -l -o ' +build_dir);
 		}
 	});
 }
 
 function compile_stylus(src_file, build_dir){
-	exec('stylus '+ src_file + ' -o ' +build_dir);
+	exec('stylus '+ src_file + ' -l -o ' +build_dir);
 }
 
 function compile_handlebars(src_dir, build_dir, template_file) {

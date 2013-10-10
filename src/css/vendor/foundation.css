@@ -164,6 +164,23 @@
     position: relative;
     margin-left: 83.33333%; }
 
+  .small-pad-left-off {
+    padding-left: 0;
+  }
+
+  .small-pad-right-off {
+    padding-right: 0;
+  }
+
+
+  .small-pad-left-on {
+    padding-left: 15px;
+  }
+
+  .small-pad-right-on {
+    padding-right: 15px;
+  }
+
   [class*="column"] + [class*="column"]:last-child {
     float: right; }
 
@@ -325,7 +342,6 @@
       clear: both; }
 }
 
-/* New grid containing medium styles */
 /* Grid HTML Classes */
 @media only screen {
   .small-1 {
@@ -462,6 +478,22 @@
 
   .medium-12 {
     width: 100%; }
+
+  .medium-pad-left-off {
+    padding-left: 0;
+  }
+
+  .medium-pad-right-off {
+    padding-right: 0;
+  }
+
+  .medium-pad-left-on {
+    padding-left: 15px
+  }
+
+  .medium-pad-right-on {
+    padding-right: 15px;
+  }
 
   .medium-offset-0 {
     margin-left: 0%; }
@@ -856,6 +888,22 @@
   .large-12 {
     position: relative;
     width: 100%; }
+
+  .large-pad-left-off {
+    padding-left: 0;
+  }
+
+  .large-pad-right-off {
+    padding-right: 0;
+  }
+
+  .large-pad-left-on {
+    padding-left: 15px;
+  }
+
+  .large-pad-right-on {
+    padding-right: 15px;
+  }
 
   .row .large-offset-0 {
     position: relative;

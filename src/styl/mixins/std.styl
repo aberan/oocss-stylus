@@ -1,7 +1,12 @@
 /* functions */
+bf = base_font_size is defined ? base_font_size : 16
+ie8 = false
+
 px_rem(n)
-  bf = base_font_size is defined ? base_font_size : 16
   return unit(n, 'px') unit((n / bf), 'rem')
+
+px_rem_dev(n)
+  return unit((n / bf), 'rem')
 
 non_zero_unit(n)
   if type(n) is not 'unit'
@@ -16,16 +21,30 @@ render_shortcut(args)
   fallback = rem = ''
 
   for n in args
-    if n == 'auto'
-      fallback += ' 'n
-      rem += ' 'n
-    else
-      unless type(n) is 'ident'
+    unless type(n) is 'ident'
+      if n == 'auto'
+        fallback += ' 'n
+        rem += ' 'n
+      else
         fallback += ' '
         rem += ' '
         fallback += non_zero_unit(n) ? px_rem(n)[0] : n
         rem += non_zero_unit(n) ? px_rem(n)[1] : n
   return fallback rem
+
+render_shortcut_dev(args)
+  ret = ''
+
+  for n in args
+    unless type(n) is 'ident'
+      if n == 'auto'
+        ret += ' 'n
+      else
+        ret += ' '
+        ret += non_zero_unit(n) ? px_rem_dev(n) : n
+  return ret
+
+
 
 vendor(prop, args)
   //depending on prop append different vendor prefixes
@@ -189,8 +208,11 @@ background-position(args...)
     nn = args[1]
 
     if non_zero_unit(n) || non_zero_unit(nn)
-      background-position unquote(render_shortcut(args)[0])
-      background-position unquote(render_shortcut(args)[1])
+      if ie8 is false
+        background-position unquote(render_shortcut_dev(args)[0])
+      else
+        background-position unquote(render_shortcut(args)[0])
+        background-position unquote(render_shortcut(args)[1])
     else
       background-position unquote(render_shortcut(args)[0])
 
@@ -198,8 +220,11 @@ font-size(args...)
   n = args[0]
 
   if non_zero_unit(n)
-    font-size unquote(render_shortcut(args)[0])
-    font-size unquote(render_shortcut(args)[1])
+    if ie8 is false
+      font-size unquote(render_shortcut_dev(args)[0])
+    else
+      font-size unquote(render_shortcut(args)[0])
+      font-size unquote(render_shortcut(args)[1])
   else
     font-size unquote(render_shortcut(args)[0])
 
@@ -211,8 +236,11 @@ height(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      height unquote(render_shortcut(args)[0])
-      height unquote(render_shortcut(args)[1])
+      if ie8 is false
+        height unquote(render_shortcut_dev(args)[0])
+      else
+        height unquote(render_shortcut(args)[0])
+        height unquote(render_shortcut(args)[1])
     else
       height unquote(render_shortcut(args)[0])
 
@@ -224,8 +252,11 @@ max-height(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      max-height unquote(render_shortcut(args)[0])
-      max-height unquote(render_shortcut(args)[1])
+      if ie8 is false
+        max-height unquote(render_shortcut_dev(args)[0])
+      else
+        max-height unquote(render_shortcut(args)[0])
+        max-height unquote(render_shortcut(args)[1])
     else
       max-height unquote(render_shortcut(args)[0])
 
@@ -234,12 +265,14 @@ min-height(args...)
   if args[0] is calc
     min-height _calc(args)
   else
-
     n = args[0]
 
     if non_zero_unit(n)
-      min-height unquote(render_shortcut(args)[0])
-      min-height unquote(render_shortcut(args)[1])
+      if ie8 is false
+        min-height unquote(render_shortcut_dev(args)[0])
+      else
+        min-height unquote(render_shortcut(args)[0])
+        min-height unquote(render_shortcut(args)[1])
     else
       min-height unquote(render_shortcut(args)[0])
 
@@ -251,8 +284,11 @@ width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      width unquote(render_shortcut(args)[0])
-      width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        width unquote(render_shortcut_dev(args)[0])
+      else
+        width unquote(render_shortcut(args)[0])
+        width unquote(render_shortcut(args)[1])
     else
       width unquote(render_shortcut(args)[0])
 
@@ -264,8 +300,11 @@ top(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      top unquote(render_shortcut(args)[0])
-      top unquote(render_shortcut(args)[1])
+      if ie8 is false
+        top unquote(render_shortcut_dev(args)[0])
+      else
+        top unquote(render_shortcut(args)[0])
+        top unquote(render_shortcut(args)[1])
     else
       top unquote(render_shortcut(args)[0])
 
@@ -277,8 +316,11 @@ right(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      right unquote(render_shortcut(args)[0])
-      right unquote(render_shortcut(args)[1])
+      if ie8 is false
+        right unquote(render_shortcut_dev(args)[0])
+      else
+        right unquote(render_shortcut(args)[0])
+        right unquote(render_shortcut(args)[1])
     else
       right unquote(render_shortcut(args)[0])
 
@@ -290,8 +332,11 @@ bottom(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      bottom unquote(render_shortcut(args)[0])
-      bottom unquote(render_shortcut(args)[1])
+      if ie8 is false
+        bottom unquote(render_shortcut_dev(args)[0])
+      else
+        bottom unquote(render_shortcut(args)[0])
+        bottom unquote(render_shortcut(args)[1])
     else
       bottom unquote(render_shortcut(args)[0])
 
@@ -303,8 +348,11 @@ left(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      left unquote(render_shortcut(args)[0])
-      left unquote(render_shortcut(args)[1])
+      if ie8 is false
+        left unquote(render_shortcut_dev(args)[0])
+      else
+        left unquote(render_shortcut(args)[0])
+        left unquote(render_shortcut(args)[1])
     else
       left unquote(render_shortcut(args)[0])
 
@@ -316,8 +364,11 @@ max-width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      max-width unquote(render_shortcut(args)[0])
-      max-width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        max-width unquote(render_shortcut_dev(args)[0])
+      else
+        max-width unquote(render_shortcut(args)[0])
+        max-width unquote(render_shortcut(args)[1])
     else
       max-width unquote(render_shortcut(args)[0])
 
@@ -329,8 +380,11 @@ min-width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      min-width unquote(render_shortcut(args)[0])
-      min-width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        min-width unquote(render_shortcut_dev(args)[0])
+      else
+        min-width unquote(render_shortcut(args)[0])
+        min-width unquote(render_shortcut(args)[1])
     else
       min-width unquote(render_shortcut(args)[0])
 
@@ -461,8 +515,11 @@ border-top-width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      border-top-width unquote(render_shortcut(args)[0])
-      border-top-width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        border-top-width unquote(render_shortcut_dev(args)[0])
+      else
+        border-top-width unquote(render_shortcut(args)[0])
+        border-top-width unquote(render_shortcut(args)[1])
     else
       border-top-width unquote(render_shortcut(args)[0])
 
@@ -473,8 +530,11 @@ border-right-width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      border-right-width unquote(render_shortcut(args)[0])
-      border-right-width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        border-right-width unquote(render_shortcut_dev(args)[0])
+      else
+        border-right-width unquote(render_shortcut(args)[0])
+        border-right-width unquote(render_shortcut(args)[1])
     else
       border-right-width unquote(render_shortcut(args)[0])
 
@@ -485,8 +545,11 @@ border-bottom-width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      border-bottom-width unquote(render_shortcut(args)[0])
-      border-bottom-width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        border-bottom-width unquote(render_shortcut_dev(args)[0])
+      else
+        border-bottom-width unquote(render_shortcut(args)[0])
+        border-bottom-width unquote(render_shortcut(args)[1])
     else
       border-bottom-width unquote(render_shortcut(args)[0])
 
@@ -497,8 +560,11 @@ border-left-width(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      border-left-width unquote(render_shortcut(args)[0])
-      border-left-width unquote(render_shortcut(args)[1])
+      if ie8 is false
+        border-left-width unquote(render_shortcut_dev(args)[0])
+      else
+        border-left-width unquote(render_shortcut(args)[0])
+        border-left-width unquote(render_shortcut(args)[1])
     else
       border-left-width unquote(render_shortcut(args)[0])
 
@@ -509,8 +575,11 @@ padding-top(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      padding-top unquote(render_shortcut(args)[0])
-      padding-top unquote(render_shortcut(args)[1])
+      if ie8 is false
+        padding-top unquote(render_shortcut_dev(args)[0])
+      else
+        padding-top unquote(render_shortcut(args)[0])
+        padding-top unquote(render_shortcut(args)[1])
     else
       padding-top unquote(render_shortcut(args)[0])
 
@@ -522,8 +591,11 @@ padding-right(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      padding-right unquote(render_shortcut(args)[0])
-      padding-right unquote(render_shortcut(args)[1])
+      if ie8 is false
+        padding-right unquote(render_shortcut_dev(args)[0])
+      else
+        padding-right unquote(render_shortcut(args)[0])
+        padding-right unquote(render_shortcut(args)[1])
     else
       padding-right unquote(render_shortcut(args)[0])
 
@@ -535,8 +607,11 @@ padding-bottom(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      padding-bottom unquote(render_shortcut(args)[0])
-      padding-bottom unquote(render_shortcut(args)[1])
+      if ie8 is false
+        padding-bottom unquote(render_shortcut_dev(args)[0])
+      else
+        padding-bottom unquote(render_shortcut(args)[0])
+        padding-bottom unquote(render_shortcut(args)[1])
     else
       padding-bottom unquote(render_shortcut(args)[0])
 
@@ -548,8 +623,11 @@ padding-left(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      padding-left unquote(render_shortcut(args)[0])
-      padding-left unquote(render_shortcut(args)[1])
+      if ie8 is false
+        padding-left unquote(render_shortcut_dev(args)[0])
+      else
+        padding-left unquote(render_shortcut(args)[0])
+        padding-left unquote(render_shortcut(args)[1])
     else
       padding-left unquote(render_shortcut(args)[0])
 
@@ -561,8 +639,11 @@ margin-top(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      margin-top unquote(render_shortcut(args)[0])
-      margin-top unquote(render_shortcut(args)[1])
+      if ie8 is false
+        margin-top unquote(render_shortcut_dev(args)[0])
+      else
+        margin-top unquote(render_shortcut(args)[0])
+        margin-top unquote(render_shortcut(args)[1])
     else
       margin-top unquote(render_shortcut(args)[0])
 
@@ -574,8 +655,11 @@ margin-right(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      margin-right unquote(render_shortcut(args)[0])
-      margin-right unquote(render_shortcut(args)[1])
+      if ie8 is false
+        margin-right unquote(render_shortcut_dev(args)[0])
+      else
+        margin-right unquote(render_shortcut(args)[0])
+        margin-right unquote(render_shortcut(args)[1])
     else
       margin-right unquote(render_shortcut(args)[0])
 
@@ -587,8 +671,11 @@ margin-bottom(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      margin-bottom unquote(render_shortcut(args)[0])
-      margin-bottom unquote(render_shortcut(args)[1])
+      if ie8 is false
+        margin-bottom unquote(render_shortcut_dev(args)[0])
+      else
+        margin-bottom unquote(render_shortcut(args)[0])
+        margin-bottom unquote(render_shortcut(args)[1])
     else
       margin-bottom unquote(render_shortcut(args)[0])
 
@@ -600,8 +687,11 @@ margin-left(args...)
     n = args[0]
 
     if non_zero_unit(n)
-      margin-left unquote(render_shortcut(args)[0])
-      margin-left unquote(render_shortcut(args)[1])
+      if ie8 is false
+        margin-left unquote(render_shortcut_dev(args)[0])
+      else
+        margin-left unquote(render_shortcut(args)[0])
+        margin-left unquote(render_shortcut(args)[1])
     else
       margin-left unquote(render_shortcut(args)[0])
 
@@ -612,8 +702,11 @@ background-size(args...)
     n = args[0]
     if typeof(n) is 'unit'
       if non_zero_unit(n)
-        background-size unquote(render_shortcut(args)[0])
-        background-size unquote(render_shortcut(args)[1])
+        if ie8 is false
+          background-size unquote(render_shortcut_dev(args)[0])
+        else
+          background-size unquote(render_shortcut(args)[0])
+          background-size unquote(render_shortcut(args)[1])
       else
         background-size unquote(render_shortcut(args)[0])
     else
