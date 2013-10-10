@@ -51,6 +51,11 @@ for ( var i = 0, z = handlebars.length; i < z; i++ ) {
   add_handlebars_dir( src + '/' + handlebars[i] );
 }
 
+//fire up livereload for build dir
+livereload = require('livereload');
+server = livereload.createServer();
+server.watch('./' + build);
+
 
 
 /* functions to init watch functionality */
