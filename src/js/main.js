@@ -22,9 +22,9 @@
 		},
 
 		init: function() {
-			var body = document.body,
-				master = $(body).data("master"),
-				action = $(body).data("action");
+			var $main = $('#main'),
+				master = $main.data("master"),
+				action = $main.data("action");
 
 			this.exec("common");
 			this.exec(master);
