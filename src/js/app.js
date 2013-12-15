@@ -10,7 +10,7 @@ requirejs.config({
 			deps: ['jquery']
 		},
 		main: {
-			deps: ['jquery', 'plugins']
+			deps: ['jquery', 'template', 'plugins']
 		}
 	}
 });
@@ -25,4 +25,5 @@ if( !document.addEventListener ) {
 	});
 }
 
+//remove template dependancy once hooked up to backed
 requirejs(['main']);
