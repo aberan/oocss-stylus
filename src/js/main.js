@@ -1,6 +1,7 @@
 /* Author:
 	nxnw.net
 */
+"use strict";
 
 (function ($) {
 	//start of user code

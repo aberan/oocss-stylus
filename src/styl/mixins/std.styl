@@ -21,15 +21,14 @@ render_shortcut(args)
   fallback = rem = ''
 
   for n in args
-    unless type(n) is 'ident'
-      if n == 'auto'
-        fallback += ' 'n
-        rem += ' 'n
-      else
-        fallback += ' '
-        rem += ' '
-        fallback += non_zero_unit(n) ? px_rem(n)[0] : n
-        rem += non_zero_unit(n) ? px_rem(n)[1] : n
+    if n == 'auto'
+      fallback += ' 'n
+      rem += ' 'n
+    else
+      fallback += ' '
+      rem += ' '
+      fallback += non_zero_unit(n) ? px_rem(n)[0] : n
+      rem += non_zero_unit(n) ? px_rem(n)[1] : n
   return fallback rem
 
 render_shortcut_dev(args)
@@ -501,12 +500,9 @@ border-left-color(n)
     border-left-color ret[1]
 
 
-border-width(n, args...)
-  if non_zero_unit(n)
-    border px_rem(n)[0] args
-    border px_rem(n)[1] args
-  else
-    border n args
+border-width(args...)
+  border-width unquote(render_shortcut(args)[0])
+  border-width unquote(render_shortcut(args)[1])
 
 border-top-width(args...)
   if args[0] is calc
@@ -744,3 +740,13 @@ font-smoothing(args...)
   for arg in arguments
     push(props, (arg))
   vendor('font-smoothing', unquote( rendor_vendor_prefixes( props )))
+
+background-linear-gradient(startPoint, startColor, startInterval, endColor, endInterval, deprecatedWebkitStartPoint = false, deprecatedWebkitEndPoint = false)
+  background-color startColor
+  if deprecatedWebkitStartPoint && deprecatedWebkitEndPoint
+    background-image -webkit-gradient(linear, deprecatedWebkitStartPoint, deprecatedWebkitEndPoint, color-stop(startInterval, startColor), color-stop(endInterval, endColor))
+  background-image -webkit-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+  background-image -moz-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+  background-image -ms-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+  background-image -o-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+  background-image linear-gradient(startPoint, startColor startInterval, endColor endInterval)
