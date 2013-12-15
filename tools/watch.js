@@ -265,9 +265,13 @@ function watch_handle(e, path, file) {
   }
 }
 
+//clean up function to work with only compiling main.styl
 function watch_stylus_handle(e, path, file) {
   var src_file = src+'/'+path+'/'+file;
   var build_dir = build + '/css';
+
+  //testing just compiling main.styl everytime since it imports all other files
+  src_file = src+'/'+path+'/main.styl';
 
   if (file) {
     var stats;
@@ -280,7 +284,8 @@ function watch_stylus_handle(e, path, file) {
           console.log('system file, ignoring');
         }
         else { //legit, compile
-          console.log('compiling: '+file);
+          //console.log('compiling: '+file);
+          console.log('start compiling main.styl');
           common.compile(src_file, build_dir);
         }
       }

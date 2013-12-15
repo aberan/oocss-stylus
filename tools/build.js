@@ -40,9 +40,8 @@ for ( var i = 0, z = templates.length; i < z; i++ ) {
 
 //compile stylus
 console.log('Compiling stylus files...');
-for ( var i = 0, z = stylus.length; i < z; i++ ) {
-  common.compile_dir(src, stylus[i], build + '/css');
-}
+//set main to be var in config instead of hardcoded here
+common.compile(src+'/styl/main.styl', 'build/css');
 
 //compile handlebar templates
 console.log('Compiling handlebar template files...');

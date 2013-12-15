@@ -1,10 +1,10 @@
 {
-    "name":"oocss",
-    "description":"oocss build package",
+    "name":"oocss-stylus",
+    "description":"oocss-stylus build package",
     "version":"1.0.0",
-    "keywords":["oocss"],
-    "homepage":"http://www.oocss.com",
-    "author":"oocss",
+    "keywords":["oocss-stylus"],
+    "homepage":"https://github.com/aberan/oocss-stylus",
+    "author":"Anthony Beran",
     "devDependencies":{
         "fs.extra" : "1.2.0",
         "handlebars" : "1.0.7",
