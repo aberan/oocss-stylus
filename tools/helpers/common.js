@@ -60,7 +60,10 @@ function compile_stylus_dir(src, dir, build_dir){
 }
 
 function compile_stylus(src_file, build_dir){
+	console.log(src_file);
+	console.log(build_dir);
 	exec('stylus '+ src_file + ' -l -o ' +build_dir);
+	console.log('finished compiling stylus!');
 }
 
 function compile_handlebars(src_dir, build_dir, template_file) {
