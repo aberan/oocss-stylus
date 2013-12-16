@@ -9,6 +9,9 @@ requirejs.config({
 		plugins: {
 			deps: ['jquery']
 		},
+		template: {
+			deps: ['jquery']
+		},
 		main: {
 			deps: ['jquery', 'template', 'plugins']
 		}
