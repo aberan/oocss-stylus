@@ -11,8 +11,6 @@
         "html" : "0.0.7",
         "path" : "0.4.9",
         "forever" : "0.10.6",
-        "stylus" : "*",
-        "grunt-cli" : "*",
-        "grunt-autoprefixer" : "*"
+        "stylus" : "*"
     }
 }
