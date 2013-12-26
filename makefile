@@ -48,6 +48,13 @@ init:
 	@echo "${HR}"
 	@echo "INSTALL NEEDED TOOLS FOR BUILD"
 	@echo "${HR}"
+	@echo "Initialize grunt packages"
+	@echo "${HR}"
+	@npm install grunt
+	@npm install grunt-autoprefixer
+	@npm install grunt-contrib-cssmin
+	@npm install grunt-contrib-requirejs
+	@npm install grunt-contrib-handlebars
 	@echo "Initialize node packages"
 	@echo "${HR}"
 	@cd tools; npm install;
