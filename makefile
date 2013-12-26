@@ -13,12 +13,31 @@ build: clean
 	@echo "${HR}\n"
 	@echo "NXNW Build                                 ${CHECK} Done - ${DATE}"
 	@echo "${HR}"
+	@echo "exec grunt [autoprefixer]"
+	@grunt
+	@echo "requirejs optimizing main.js - concat only, no minifying"
+	@r.js -o app.build.js
+
+production:
+	@echo "Deploying project"
+	@node tools/build
+	@echo "${HR}\n"
+	@echo "NXNW Build                                 ${CHECK} Done - ${DATE}"
+	@echo "${HR}"
+	@echo "exec grunt [autoprefixer]"
+	@grunt
+	@echo "minifying css"
+	@grunt min
+	@echo "minifying js"
+	@r.js -o app.build-prod.js
 
 #
 # START BUILD AND WATCH
 #
 
 bw: build watch
+
+prod: clean production
 
 
 #

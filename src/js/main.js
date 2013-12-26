@@ -10,6 +10,7 @@ define(function(require){
   require('transition.end.min');
   require('enquire.min');
   require('throttle-debounce.min');
+  //remove once moved on backend
   require('template');
 
 	(function ($) {
@@ -45,6 +46,7 @@ define(function(require){
 		$(document).ready(function(){
 			DOMEXEC.init();
 		}); // \document.rdy
-	})(jQuery);
+
+	})(window.jQuery);
 
 });

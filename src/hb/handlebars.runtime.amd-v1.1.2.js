@@ -5,13 +5,27 @@
 
 define(function(require){
   var jQuery = require('jquery');
-  var tmpl = require('handlebars-templates');
+  require('handlebars');
+  require('hb/handlebars-templates');
 
 	(function ($) {
 		//start of user code
 		var LOCALSITE = {
 			common: {
 				_init: function(){
+					console.log('TEMPLATE.JS');
+
+					var main_nav = Handlebars.templates['link'];
+
+					var context = {
+						links : [
+							{ title: 'Catalog', url: 'catalog.html' },
+							{ title: 'Inspiration', url: 'inspiration.html' },
+							{ title: 'Help', url: 'help.html' },
+							{ title: 'Contact', url: 'contact.html' }
+						]
+					};
+					$('#handlebars-main-menu').html(main_nav(context));
 				}  /* \LOCALSITE.common.init */
 			}, /* \LOCALSITE.common */
 
@@ -38,6 +52,6 @@ define(function(require){
 		$(document).ready(function(){
 			DOMEXEC.init();
 		}); // \document.rdy
-	})(window.jQuery);
+	})(jQuery);
 
 });

@@ -3,7 +3,7 @@
 var config = {
 	src : 'src',
 	build : 'build',
-	build_dir : ['js', 'css', 'img'],
+	build_dir : ['js', 'css', 'img', 'hb'],
 	watch_dir : ['js', 'js/vendor', 'css', 'css/vendor', 'css/fonts', 'img', 'media'],
 	template_dir : ['templates'],
 	template_inc : ['includes'],

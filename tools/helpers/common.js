@@ -55,6 +55,9 @@ function compile_stylus_dir(src, dir, build_dir){
 		if ( /^(.)+\.styl/.test( file ) ) {
 			//compile stylus
 			exec('stylus '+ src_file + ' -l -o ' +build_dir);
+			//exec grunt css
+			exec('grunt css');
+			console.log('finished exec autoprefixer!!');
 		}
 	});
 }
@@ -64,11 +67,15 @@ function compile_stylus(src_file, build_dir){
 	console.log(build_dir);
 	exec('stylus '+ src_file + ' -l -o ' +build_dir);
 	console.log('finished compiling stylus!');
+	//exec grunt css
+	exec('grunt css');
+	console.log('finished exec autoprefixer');
 }
 
 function compile_handlebars(src_dir, build_dir, template_file) {
 	var build_file = build_dir + '/' + template_file;
-	exec('handlebars ' + src_dir + ' -f ' + build_file + ' -k each -k if -k unless', function (err) {
+	console.log( 'handlebars ' + src_dir + ' -f ' + build_file + ' -a true -k each -k if -k unless' );
+	exec('handlebars ' + src_dir + ' -f ' + build_file + ' -a true -k each -k if -k unless', function (err) {
     if (err) {
       console.log(err);
       throw err;
