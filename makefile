@@ -18,7 +18,7 @@ build: clean
 	@echo "requirejs optimizing main.js with uglify2 - concat only, no minifying"
 	@r.js -o app.build.js
 
-buildlite: clean
+dev: clean
 	@echo "Building project without minifying"
 	@node tools/build
 	@echo "${HR}\n"
@@ -48,7 +48,7 @@ production:
 
 bw: build watch
 
-blw: buildlite watchlite
+dw: dev watchdev
 
 prod: clean production
 
@@ -93,7 +93,7 @@ watch:
 	@echo "Start project watch..."
 	@node tools/watch
 
-watchlite:
+watchdev:
 	@echo "${HR}"
 	@echo "Start project watch..."
-	@node tools/watchlite
+	@node tools/dev
