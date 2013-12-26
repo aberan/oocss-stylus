@@ -65,7 +65,6 @@ init:
 #
 
 clean:
-#	@cd /vagrant
 	@node tools/clean
 	@echo "${HR}"
 	@echo "NXNW Clean                                 ${CHECK} Done - ${DATE}"
