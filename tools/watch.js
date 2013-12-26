@@ -10,7 +10,6 @@ var templates = config.template_dir;
 var template_includes = config.template_inc;
 var stylus = config.stylus_dir;
 var js = config.js_dir;
-var mixins = config.stylus_mixins;
 var handlebars = config.handlebars_dir;
 var handlebars_template = config.handlebars_template;
 var root = config.root_dir;
@@ -38,11 +37,6 @@ for ( var i = 0, z = template_includes.length; i < z; i++ ) {
 //watch stylus dir
 for ( var i = 0, z = stylus.length; i < z; i++ ) {
   add_stylus_dir( src + '/' + stylus[i], stylus[i] );
-}
-
-//watch mixins dir
-for ( var i = 0, z = mixins.length; i < z; i++ ) {
-  add_mixins_dir( src + '/' + mixins[i] );
 }
 
 //watch js dir
@@ -83,12 +77,6 @@ function add_stylus_dir(dir, path ) {
 function add_template_inc_dir(dir) {
   fs.watch(dir, function() {
     rebuild_templates( templates );
-  });
-}
-
-function add_mixins_dir(dir) {
-  fs.watch(dir, function() {
-    rebuild_stylus( stylus );
   });
 }
 
@@ -280,10 +268,6 @@ function watch_handle(e, path, file) {
 //clean up function to work with only compiling main.styl
 function watch_stylus_handle(e, path, file) {
   var src_file = src+'/'+path+'/'+file;
-  var build_dir = build + '/css';
-
-  //testing just compiling main.styl everytime since it imports all other files
-  src_file = src+'/'+path+'/main.styl';
 
   if (file) {
     var stats;
@@ -298,25 +282,13 @@ function watch_stylus_handle(e, path, file) {
         else { //legit, compile
           //console.log('compiling: '+file);
           console.log('start compiling main.styl');
-          common.compile(src_file, build_dir);
+          common.compile();
         }
-      }
-      else { //removed
-        console.log('removed: '+file);
-        fs.rmrfSync( build_dir + '/' + file.replace(/\.styl$/, '.css' ) );
       }
     });
   }
   else {
     console.log('file not provided');
-  }
-}
-
-function rebuild_stylus( stylus ) {
-  //loop through all stylus directories, rebuilding the templates
-  for ( var i = 0, z = stylus.length; i < z; i++ ) {
-    console.log('Rebuilding stylus files ...');
-    common.compile_dir(src, stylus[i], build + '/css');
   }
 }
 

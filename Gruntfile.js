@@ -34,6 +34,18 @@ module.exports = function(grunt) {
 				src: 'build/css/main.css',
 				dest: 'build/css/main.css',
 			}
+		},
+
+		stylus: {
+			compile: {
+				options: {
+					compress: false,
+					linenos: true
+				},
+				files: {
+					'build/css/main.css': 'src/styl/main.styl'
+				}
+			}
 		}
 
 	});
@@ -41,6 +53,7 @@ module.exports = function(grunt) {
 	// css tasks
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-stylus');
 
 	//js tasks
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
@@ -49,7 +62,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
 
 	//register tasks
-	grunt.registerTask('css', ['autoprefixer']);
+	grunt.registerTask('css', ['stylus', 'autoprefixer']);
 	grunt.registerTask('js', ['requirejs']);
 	grunt.registerTask('default', ['css']);
 	grunt.registerTask('hb', ['handlebars']);
