@@ -15,8 +15,19 @@ build: clean
 	@echo "${HR}"
 	@echo "exec grunt [autoprefixer]"
 	@grunt
-	@echo "requirejs optimizing main.js - concat only, no minifying"
+	@echo "requirejs optimizing main.js with uglify2 - concat only, no minifying"
 	@r.js -o app.build.js
+
+buildlite: clean
+	@echo "Building project without minifying"
+	@node tools/build
+	@echo "${HR}\n"
+	@echo "NXNW Build                                 ${CHECK} Done - ${DATE}"
+	@echo "${HR}"
+	@echo "exec grunt [autoprefixer]"
+	@grunt
+	@echo "requirejs optimizing main.js - concat only, no minifying"
+	@r.js -o app.build-watch.js
 
 production:
 	@echo "Deploying project"
@@ -36,6 +47,8 @@ production:
 #
 
 bw: build watch
+
+blw: buildlite watch
 
 prod: clean production
 

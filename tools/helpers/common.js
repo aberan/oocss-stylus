@@ -72,6 +72,11 @@ function compile_stylus(src_file, build_dir){
 	console.log('finished exec autoprefixer');
 }
 
+function compile_js() {
+	console.log('compiling js via requireJS optimizer');
+	exec('r.js -o app.build-watch.js');
+}
+
 function compile_handlebars(src_dir, build_dir, template_file) {
 	var build_file = build_dir + '/' + template_file;
 	console.log( 'handlebars ' + src_dir + ' -f ' + build_file + ' -a true -k each -k if -k unless' );

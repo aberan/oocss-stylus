@@ -9,6 +9,7 @@ var build = config.build;
 var templates = config.template_dir;
 var template_includes = config.template_inc;
 var stylus = config.stylus_dir;
+var js = config.js_dir;
 var mixins = config.stylus_mixins;
 var handlebars = config.handlebars_dir;
 var handlebars_template = config.handlebars_template;
@@ -44,6 +45,11 @@ for ( var i = 0, z = mixins.length; i < z; i++ ) {
   add_mixins_dir( src + '/' + mixins[i] );
 }
 
+//watch js dir
+for ( var i = 0, z = js.length; i < z; i++ ) {
+  add_js_dir( src + '/' + js[i]);
+}
+
 //watch handlebars dir
 for ( var i = 0, z = handlebars.length; i < z; i++ ) {
   add_handlebars_dir( src + '/' + handlebars[i] );
@@ -65,6 +71,12 @@ function add_template_dir(dir, path) {
 function add_stylus_dir(dir, path ) {
   fs.watch(dir, function(e, file) {
     watch_stylus_handle(e, path, file);
+  });
+}
+
+function add_js_dir(dir) {
+  fs.watch(dir, function() {
+    rebuild_js();
   });
 }
 
@@ -306,6 +318,11 @@ function rebuild_stylus( stylus ) {
     console.log('Rebuilding stylus files ...');
     common.compile_dir(src, stylus[i], build + '/css');
   }
+}
+
+function rebuild_js () {
+  //exec requireJS optimizer
+  common.compile_js();
 }
 
 function rebuild_handlebars( dir, template_file ) {
