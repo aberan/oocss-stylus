@@ -68,6 +68,7 @@ init:
 	@npm install grunt-contrib-cssmin
 	@npm install grunt-contrib-requirejs
 	@npm install grunt-contrib-handlebars
+	@npm install grunt-contrib-stylus
 	@echo "Initialize node packages"
 	@echo "${HR}"
 	@cd tools; npm install;
