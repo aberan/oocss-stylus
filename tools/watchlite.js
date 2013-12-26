@@ -322,7 +322,7 @@ function rebuild_stylus( stylus ) {
 
 function rebuild_js (file) {
   //exec requireJS optimizer
-  common.compile_js( file, false );
+  common.compile_js( file, true );
 }
 
 function rebuild_handlebars( dir, template_file ) {

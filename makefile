@@ -48,7 +48,7 @@ production:
 
 bw: build watch
 
-blw: buildlite watch
+blw: buildlite watchlite
 
 prod: clean production
 
@@ -92,3 +92,8 @@ watch:
 	@echo "${HR}"
 	@echo "Start project watch..."
 	@node tools/watch
+
+watchlite:
+	@echo "${HR}"
+	@echo "Start project watch..."
+	@node tools/watchlite

@@ -72,10 +72,16 @@ function compile_stylus(src_file, build_dir){
 	console.log('finished exec autoprefixer');
 }
 
-function compile_js(file) {
+function compile_js(file, lite) {
 	if ( /^(.)+\.js/.test( file ) ) {
 		console.log('compiling js via requireJS optimizer');
-		exec('r.js -o app.build-watch.js');
+		if ( lite ) {
+			exec('r.js -o app.build-watch.js');
+		}
+		else { //need uglify because of global_defs
+			exec('r.js -o app.build.js');
+		}
+
 	}
 }
 
