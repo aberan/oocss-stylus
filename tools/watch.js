@@ -47,7 +47,7 @@ for ( var i = 0, z = mixins.length; i < z; i++ ) {
 
 //watch js dir
 for ( var i = 0, z = js.length; i < z; i++ ) {
-  add_js_dir( src + '/' + js[i]);
+  add_js_dir( src + '/' + js[i] );
 }
 
 //watch handlebars dir
@@ -68,15 +68,15 @@ function add_template_dir(dir, path) {
   });
 }
 
-function add_stylus_dir(dir, path ) {
-  fs.watch(dir, function(e, file) {
-    watch_stylus_handle(e, path, file);
+function add_js_dir(dir) {
+  fs.watch(dir, function(e, file ) {
+    rebuild_js( file );
   });
 }
 
-function add_js_dir(dir) {
-  fs.watch(dir, function() {
-    rebuild_js();
+function add_stylus_dir(dir, path ) {
+  fs.watch(dir, function(e, file) {
+    watch_stylus_handle(e, path, file);
   });
 }
 
@@ -320,9 +320,9 @@ function rebuild_stylus( stylus ) {
   }
 }
 
-function rebuild_js () {
+function rebuild_js (file) {
   //exec requireJS optimizer
-  common.compile_js();
+  common.compile_js( file );
 }
 
 function rebuild_handlebars( dir, template_file ) {

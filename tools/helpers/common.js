@@ -72,9 +72,11 @@ function compile_stylus(src_file, build_dir){
 	console.log('finished exec autoprefixer');
 }
 
-function compile_js() {
-	console.log('compiling js via requireJS optimizer');
-	exec('r.js -o app.build-watch.js');
+function compile_js(file) {
+	if ( /^(.)+\.js/.test( file ) ) {
+		console.log('compiling js via requireJS optimizer');
+		exec('r.js -o app.build-watch.js');
+	}
 }
 
 function compile_handlebars(src_dir, build_dir, template_file) {
@@ -95,5 +97,6 @@ module.exports = {
 		fs : fs,
 		compile_dir: compile_stylus_dir,
 		compile : compile_stylus,
+		compile_js: compile_js,
 		hb_compile_dir : compile_handlebars
 };
