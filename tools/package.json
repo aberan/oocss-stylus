@@ -6,11 +6,12 @@
     "homepage":"https://github.com/aberan/oocss-stylus",
     "author":"Anthony Beran",
     "devDependencies":{
-        "fs.extra" : "*",
-        "handlebars" : "*",
-        "html" : "*",
-        "path" : "*",
-        "forever" : "*",
-        "stylus" : "*"
+        "fs.extra" : "1.2.0",
+        "handlebars" : "1.0.7",
+        "html" : "0.0.7",
+        "path" : "0.4.9",
+        "forever" : "0.10.6",
+        "stylus" : "*",
+        "grunt" : "*"
     }
 }
