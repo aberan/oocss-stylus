@@ -43,29 +43,11 @@ render_shortcut_dev(args)
         ret += non_zero_unit(n) ? px_rem_dev(n) : n
   return ret
 
-
-
 vendor(prop, args)
   //depending on prop append different vendor prefixes
-  if prop is 'border-radius'
-    {prop} args
-  else if prop is 'box-shadow'
-    -webkit-{prop} args
-    {prop} args
-  else if prop is 'box-sizing'
+  if prop is 'font-smoothing'
     -webkit-{prop} args
     -moz-{prop} args
-    {prop} args
-  else if prop is 'transition'
-    -webkit-{prop} args
-    {prop} args
-  else if prop is 'font-smoothing'
-    -webkit-{prop} args
-    -moz-{prop} args
-    {prop} args
-  else if prop is 'transform'
-    -webkit-{prop} args
-    -ms-{prop} args
     {prop} args
 
 rendor_vendor_prefixes(args)
@@ -717,23 +699,14 @@ padding(args...)
   padding unquote(render_shortcut(args)[0])
   padding unquote(render_shortcut(args)[1])
 
-transition(args...)
-  vendor('transition', arguments)
-
 border-radius(args...)
-  vendor('border-radius', unquote( rendor_vendor_prefixes( args )))
-
-box-sizing(args)
-  vendor('box-sizing', arguments)
-
-transform(args)
-  vendor('transform', arguments)
+  border-radius unquote( rendor_vendor_prefixes( args ) )
 
 box-shadow(args...)
   props = ()
   for arg in arguments
     push(props, (arg))
-  vendor('box-shadow', unquote( rendor_vendor_prefixes( props )))
+  box-shadow unquote( rendor_vendor_prefixes( props ) )
 
 font-smoothing(args...)
   props = ()
