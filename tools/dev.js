@@ -88,7 +88,7 @@ function add_handlebars_dir(dir) {
 
 /* watch callbacks */
 function watch_template_handle(e, path, file) {
-  if (file && /^\./.test( file ) ) {
+  if (file && !( /^\./.test( file ) ) ) {
     var stats;
     var src_file = src+'/'+path+'/'+file;
 
@@ -114,7 +114,7 @@ function watch_root_handle(e, path, file) {
   var src_file = src+'/'+path+'/'+file;
   var build_file = build+'/'+file;
 
-  if (file && /^\./.test( file ) ) {
+  if (file && !( /^\./.test( file ) ) ) {
     var stats;
     fs.exists(src_file, function (exists) {
       if ( exists ) {
@@ -174,7 +174,7 @@ function watch_handle(e, path, file) {
   var src_file = src+'/'+path+'/'+file;
   var build_file = build+'/'+path+'/'+file;
 
-  if ( file && /^\./.test( file ) ) {
+  if ( file && !( /^\./.test( file ) ) ) {
     var stats;
     fs.exists(src_file, function (exists) {
       if ( exists ) {
@@ -245,7 +245,7 @@ function watch_handle(e, path, file) {
 function watch_stylus_handle(e, path, file) {
   var src_file = src+'/'+path+'/'+file;
 
-  if ( file && /^\./.test( file ) ) {
+  if ( file && !( /^\./.test( file ) ) ) {
     var stats;
     fs.exists(src_file, function (exists) {
       if ( exists ) {
@@ -258,20 +258,14 @@ function watch_stylus_handle(e, path, file) {
 
 function rebuild_js (file) {
   //exec requireJS optimizer
-  if ( /^\./.test( file ) ) {
-    console.log('system file, ignoring');
-  }
-  else { //legit, compile
+  if ( !( /^\./.test( file ) ) ) {
     common.compile_js( file, true );
   }
 }
 
 function rebuild_handlebars( file) {
   //dont copy the file if it is a system file
-  if ( /^\./.test( file ) ) {
-    console.log('system file, ignoring');
-  }
-  else { //legit, compile
+  if ( !( /^\./.test( file ) ) ) {
     common.hb_compile_dir(file, true, true);
   }
 }
