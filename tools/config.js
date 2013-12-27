@@ -8,6 +8,8 @@ var config = {
 	template_dir : ['templates'],
 	template_inc : ['includes'],
 	stylus_dir : ['styl', 'styl/mixins'],
+	stylus_root: 'styl/main.styl',
+	stylus_build_dir: 'css',
 	js_dir: ['js', 'js/vendor'],
 	handlebars_dir : ['handlebars'],
 	handlebars_template : 'handlebars-templates.js',

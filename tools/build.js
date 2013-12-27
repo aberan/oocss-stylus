@@ -11,6 +11,8 @@ var stylus = config.stylus_dir;
 var handlebars = config.handlebars_dir;
 var handlebars_template = config.handlebars_template;
 var root_dir = config.root_dir;
+var stylus_root = config.stylus_root;
+var stylus_build_dir = config.stylus_build_dir;
 
 //nuke build dir
 fs.rmrfSync( build );
@@ -40,16 +42,11 @@ for ( var i = 0, z = templates.length; i < z; i++ ) {
 
 //compile stylus
 console.log('Compiling stylus files...');
-//set main to be var in config instead of hardcoded here
-common.compile(src+'/styl/main.styl', 'build/css');
+common.compile(src + stylus_root, build + stylus_build_dir);
 
 //compile handlebar templates
 console.log('Compiling handlebar template files as AMD module...');
 common.hb_compile_dir(false);
-/*for ( var i = 0, z = handlebars.length; i < z; i++ ) {
-  var src_dir = src + '/' + handlebars[i];
-  common.hb_compile_dir(src_dir, build + '/js', handlebars_template);
-}*/
 
 function add_dir(src, build, path) {
   fs.copyRecursive(src + '/' + path, build+ '/' + path, function (err) {
