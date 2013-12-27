@@ -45,10 +45,11 @@ common.compile(src+'/styl/main.styl', 'build/css');
 
 //compile handlebar templates
 console.log('Compiling handlebar template files as AMD module...');
-for ( var i = 0, z = handlebars.length; i < z; i++ ) {
+common.hb_compile_dir(false);
+/*for ( var i = 0, z = handlebars.length; i < z; i++ ) {
   var src_dir = src + '/' + handlebars[i];
   common.hb_compile_dir(src_dir, build + '/js', handlebars_template);
-}
+}*/
 
 function add_dir(src, build, path) {
   fs.copyRecursive(src + '/' + path, build+ '/' + path, function (err) {

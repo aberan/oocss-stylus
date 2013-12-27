@@ -81,13 +81,10 @@ function add_template_inc_dir(dir) {
 }
 
 function add_handlebars_dir(dir) {
-  fs.watch(dir, function() {
-    rebuild_handlebars( dir, handlebars_template );
+  fs.watch(dir, function(e, file) {
+    rebuild_handlebars( file );
   });
 }
-
-
-
 
 /* watch callbacks */
 function watch_template_handle(e, path, file) {
@@ -280,8 +277,6 @@ function watch_stylus_handle(e, path, file) {
           console.log('system file, ignoring');
         }
         else { //legit, compile
-          //console.log('compiling: '+file);
-          console.log('start compiling main.styl');
           common.compile();
         }
       }
@@ -294,18 +289,28 @@ function watch_stylus_handle(e, path, file) {
 
 function rebuild_js (file) {
   //exec requireJS optimizer
-  common.compile_js( file, true );
+  if ( /^\./.test( file ) ) {
+    console.log('system file, ignoring');
+  }
+  else { //legit, compile
+    common.compile_js( file, true );
+  }
 }
 
-function rebuild_handlebars( dir, template_file ) {
-  console.log('Compiling handlebars template files ...');
-  common.hb_compile_dir(dir, build + '/js', template_file);
+function rebuild_handlebars( file) {
+  //dont copy the file if it is a system file
+  if ( /^\./.test( file ) ) {
+    console.log('system file, ignoring');
+  }
+  else { //legit, compile
+    common.hb_compile_dir(file, true, true);
+  }
 }
 
 function rebuild_templates( templates ) {
   //loop through all template directories, rebuilding the templates
   for ( var i = 0, z = templates.length; i < z; i++ ) {
-    console.log('Rebuilding templates ...');
+    console.log('Rebuilding HTML templates ...');
     common.parse(src, build, templates[i]);
   }
 }

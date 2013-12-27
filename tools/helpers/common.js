@@ -46,54 +46,24 @@ function parse_single_template(src_path, build_path, file) {
 	}
 }
 
-function compile_stylus_dir(src, dir, build_dir){
-	var src_path = src + '/' + dir;
-
-	fs.readdirSync( src_path ).forEach( function ( file ) {
-		var src_file = src_path + '/' + file;
-		//make sure we are looking at a .styl file
-		if ( /^(.)+\.styl/.test( file ) ) {
-			//compile stylus
-			//exec('stylus '+ src_file + ' -l -o ' +build_dir);
-			//exec grunt css
-			exec('grunt css');
-			console.log('finished compiling stylus to css');
-		}
-	});
-}
-
 function compile_stylus(){
-	//console.log(src_file);
-	//console.log(build_dir);
-	//exec('stylus '+ src_file + ' -l -o ' +build_dir);
-	//console.log('finished compiling stylus!');
-	//exec grunt css
+	console.log('Compiling stylus + autoprefixer');
 	exec('grunt css');
-	console.log('finished compiling stylus to css!!!');
 }
 
 function compile_js(file, lite) {
-	if ( /^(.)+\.js/.test( file ) ) {
-		console.log('compiling js via requireJS optimizer');
-		if ( lite ) {
-			exec('r.js -o app.build-watch.js');
-		}
-		else { //need uglify because of global_defs
-			exec('r.js -o app.build.js');
-		}
-
+	console.log('Compiling js with requireJS');
+	if ( lite ) {
+		exec('r.js -o app.build-watch.js');
+	}
+	else { //need uglify because of global_defs
+		exec('r.js -o app.build.js');
 	}
 }
 
-function compile_handlebars(src_dir, build_dir, template_file) {
-	var build_file = build_dir + '/' + template_file;
-	console.log( 'handlebars ' + src_dir + ' -f ' + build_file + ' -a true -k each -k if -k unless' );
-	exec('handlebars ' + src_dir + ' -f ' + build_file + ' -a true -k each -k if -k unless', function (err) {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-  });
+function compile_handlebars(file, requireJS, lite) {
+	console.log('Compiling Handlebar templates');
+	exec('grunt hbs');
 }
 
 
@@ -101,7 +71,6 @@ module.exports = {
 		parse : parse_templates,
 		parse_single : parse_single_template,
 		fs : fs,
-		compile_dir: compile_stylus_dir,
 		compile : compile_stylus,
 		compile_js: compile_js,
 		hb_compile_dir : compile_handlebars

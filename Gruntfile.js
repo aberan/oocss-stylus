@@ -10,9 +10,8 @@ module.exports = function(grunt) {
 		requirejs: {
 			compile: {
 				options: {
-					baseUrl: "src/js",
-					mainConfigFile: "src/js/app.js",
-					out: "build/js/main2.js"
+					mainConfigFile: "app.build-prod.js",
+					dir: "build/js"
 				}
 			}
 		},
@@ -21,10 +20,16 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					amd: true,
-					namespace: false
+					namespace: 'tmpl',
+					processName: function(filePath) {
+						return filePath.split('/').pop().split(".")[0];
+					},
+					compilerOptions: {
+						knownHelpersOnly: true
+					}
 				},
 				files: {
-					"build/hb/handlebars-templates.js": ["src/handlebars/*.handlebars"]
+					"src/js/handlebars-templates.js": ["src/handlebars/*.hbs"]
 				}
 			}
 		},
@@ -65,6 +70,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('css', ['stylus', 'autoprefixer']);
 	grunt.registerTask('js', ['requirejs']);
 	grunt.registerTask('default', ['css']);
-	grunt.registerTask('hb', ['handlebars']);
+	grunt.registerTask('hbs', ['handlebars']);
 	grunt.registerTask('min', ['cssmin']);
 };

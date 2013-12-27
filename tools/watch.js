@@ -81,8 +81,8 @@ function add_template_inc_dir(dir) {
 }
 
 function add_handlebars_dir(dir) {
-  fs.watch(dir, function() {
-    rebuild_handlebars( dir, handlebars_template );
+  fs.watch(dir, function(e, file) {
+    rebuild_handlebars( file );
   });
 }
 
@@ -294,12 +294,22 @@ function watch_stylus_handle(e, path, file) {
 
 function rebuild_js (file) {
   //exec requireJS optimizer
-  common.compile_js( file, false );
+  if ( /^\./.test( file ) ) {
+    console.log('system file, ignoring');
+  }
+  else { //legit, compile
+    common.compile_js( file, false );
+  }
 }
 
-function rebuild_handlebars( dir, template_file ) {
-  console.log('Compiling handlebars template files ...');
-  common.hb_compile_dir(dir, build + '/js', template_file);
+function rebuild_handlebars(file) {
+  //dont copy the file if it is a system file
+  if ( /^\./.test( file ) ) {
+    console.log('system file, ignoring');
+  }
+  else { //legit, compile
+    common.hb_compile_dir(file, true, false);
+  }
 }
 
 function rebuild_templates( templates ) {
