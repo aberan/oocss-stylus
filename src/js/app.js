@@ -1,10 +1,10 @@
 requirejs.config({
 	baseUrl : 'js',
 	paths : {
-		jquery: ['//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min','vendor/jquery-2.0.3.min'],
-		jquery_old: ['//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min','vendor/jquery-1.10.2.min'],
 		app: 'vendor',
-		hb: '/hb'
+		bower: 'bower',
+		jquery: 'bower/jquery_new/jquery.min',
+		jquery_old: 'bower/jquery_old/jquery.min'
 	},
 	shim: {
 	}
@@ -23,12 +23,12 @@ if( !document.addEventListener ) {
 //if enquire.js is not required just load main and remove enquire.js from dependency list
 //requirejs(['main']);
 
-Modernizr.load([
+yepnope([
 	{
 		test: window.matchMedia,
-		nope: 'js/vendor/matchmedia-2.0.2.min.js',
+		nope: './js/bower/matchmedia/matchMedia.js',
 		complete: function () {
 			requirejs(['main']);
 		} /* \complete */
 	}
-]); // \Modernizr.load
+]); // \yepnope

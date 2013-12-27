@@ -45,7 +45,9 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					compress: false,
-					linenos: true
+					linenos: true,
+					"include css": true,
+					paths: ['build/js/bower/']
 				},
 				files: {
 					'build/css/main.css': 'src/styl/main.styl'

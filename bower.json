@@ -1,0 +1,16 @@
+{
+  "name": "test",
+  "dependencies": {
+  	"jquery_new": "jquery#2",
+  	"jquery_old": "jquery#1.10",
+  	"modernizr": "*",
+  	"yepnope": "*",
+  	"requirejs": "*",
+  	"almond": "*",
+  	"selectivizr": "*",
+  	"nwmatcher": "*",
+  	"respond": "*",
+  	"matchmedia": "*",
+  	"normalize-css": "*"
+  }
+}
