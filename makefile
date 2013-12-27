@@ -61,6 +61,9 @@ init:
 	@echo "${HR}"
 	@echo "INSTALL NEEDED TOOLS FOR BUILD"
 	@echo "${HR}"
+	@echo "Loading Bower components"
+	@bower install
+	@echo "${HR}"
 	@echo "Initialize grunt packages"
 	@echo "${HR}"
 	@npm install grunt
