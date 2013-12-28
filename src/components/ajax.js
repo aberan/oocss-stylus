@@ -10,7 +10,7 @@ var LOCALSITE_AJAX = {
 			async: async
 		})
 			.done( function(response) {
-				var response_json = $.parseJSON(response);
+				var response_json = typeof response === 'object' ? response : $.parseJSON(response);
 				args.callback[response_json.status](response_json.args);
 			})
 			.fail( function(jqXHR, textStatus, errorThrown){
