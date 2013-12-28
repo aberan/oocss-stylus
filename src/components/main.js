@@ -5,8 +5,8 @@
 
 define(function(require){
   var jQuery = require('jquery');
-  require('console.min');
-  require('raf.min');
+  require('console');
+  require('raf');
   require('transition.end-3.0.3');
   require('enquire.min');
   require('throttle-debounce');
