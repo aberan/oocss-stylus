@@ -7,7 +7,7 @@ define(function(require){
   var jQuery = require('jquery');
   require('console.min');
   require('raf.min');
-  require('transition.end.min');
+  require('transition.end-3.0.3');
   require('enquire.min');
   require('throttle-debounce');
   //remove once moved on backend
