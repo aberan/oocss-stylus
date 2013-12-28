@@ -69,9 +69,9 @@ init:
 	@npm install grunt
 	@npm install grunt-autoprefixer
 	@npm install grunt-contrib-cssmin
-	@npm install grunt-contrib-requirejs
 	@npm install grunt-contrib-handlebars
 	@npm install grunt-contrib-stylus
+	@npm install grunt-contrib-uglify
 	@echo "Initialize node packages"
 	@echo "${HR}"
 	@cd tools; npm install;
