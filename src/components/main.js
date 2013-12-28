@@ -9,7 +9,7 @@ define(function(require){
   require('raf.min');
   require('transition.end.min');
   require('enquire.min');
-  require('throttle-debounce.min');
+  require('throttle-debounce');
   //remove once moved on backend
   require('template');
 
