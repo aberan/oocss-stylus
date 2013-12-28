@@ -1,10 +1,11 @@
 ({
-	appDir: "src/js",
+	appDir: "src/components",
 	baseUrl: ".",
-	dir: "build/js",
+	dir: "build/components",
 	keepBuildDir: true,
 	generateSourceMaps: false,
 	preserveLicenseComments: false,
+	fileExclusionRegExp: /^bower/,
 	optimize: "uglify2",
 	uglify2: {
 		output: {

@@ -1,5 +1,5 @@
 requirejs.config({
-	baseUrl : 'js',
+	baseUrl : 'components',
 	paths : {
 		app: 'vendor',
 		bower: 'bower',
@@ -26,7 +26,7 @@ if( !document.addEventListener ) {
 yepnope([
 	{
 		test: window.matchMedia,
-		nope: './js/bower/matchmedia/matchMedia.js',
+		nope: './components/bower/matchmedia/matchMedia.js',
 		complete: function () {
 			requirejs(['main']);
 		} /* \complete */

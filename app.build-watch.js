@@ -1,9 +1,10 @@
 ({
-	appDir: "src/js",
+	appDir: "src/components",
 	baseUrl: ".",
-	dir: "build/js",
+	dir: "build/components",
 	keepBuildDir: true,
 	preserveLicenseComments: false,
+	fileExclusionRegExp: /^bower/,
 	optimize: "none",
 	paths: {
 		jquery: "empty:",

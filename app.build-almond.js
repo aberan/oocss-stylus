@@ -1,7 +1,7 @@
 ({
-	appDir: "src/js",
+	appDir: "src/components",
 	baseUrl: ".",
-	dir: "build/js",
+	dir: "build/components",
 	keepBuildDir: true,
 	preserveLicenseComments: false,
 	optimize: "none",

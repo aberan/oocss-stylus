@@ -7,15 +7,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		requirejs: {
-			compile: {
-				options: {
-					mainConfigFile: "app.build-prod.js",
-					dir: "build/js"
-				}
-			}
-		},
-
 		handlebars: {
 			compile: {
 				options: {
@@ -29,7 +20,7 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
-					"src/js/handlebars-templates.js": ["src/handlebars/*.hbs"]
+					"src/components/handlebars-templates.js": ["src/handlebars/*.hbs"]
 				}
 			}
 		},
@@ -47,10 +38,20 @@ module.exports = function(grunt) {
 					compress: false,
 					linenos: true,
 					"include css": true,
-					paths: ['build/js/bower/']
+					paths: ['build/components/bower/']
 				},
 				files: {
 					'build/css/main.css': 'src/styl/main.styl'
+				}
+			}
+		},
+
+		uglify: {
+			my_target: {
+				files: {
+					'build/components/bower/modernizr/modernizr.js': 'src/components/bower/modernizr/modernizr.js',
+					'build/components/bower/yepnope/yepnope.js': 'src/components/bower/yepnope/yepnope.js',
+					'build/components/bower/requirejs/require.js': 'src/components/bower/requirejs/require.js'
 				}
 			}
 		}
@@ -64,14 +65,14 @@ module.exports = function(grunt) {
 
 	//js tasks
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	//hbs tasks
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
 
 	//register tasks
 	grunt.registerTask('css', ['stylus', 'autoprefixer']);
-	grunt.registerTask('js', ['requirejs']);
 	grunt.registerTask('default', ['css']);
 	grunt.registerTask('hbs', ['handlebars']);
-	grunt.registerTask('min', ['cssmin']);
+	grunt.registerTask('min', ['cssmin', 'uglify']);
 };

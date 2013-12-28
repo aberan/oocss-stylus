@@ -37,7 +37,7 @@ production:
 	@echo "${HR}"
 	@echo "exec grunt [autoprefixer]"
 	@grunt
-	@echo "minifying css"
+	@echo "minifying css/bower components"
 	@grunt min
 	@echo "minifying js"
 	@r.js -o app.build-prod.js
