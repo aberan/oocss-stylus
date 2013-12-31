@@ -10,7 +10,7 @@ var config = {
 	stylus_dir : ['styl', 'styl/mixins'],
 	stylus_root: 'styl/main.styl',
 	stylus_build_dir: 'css',
-	js_dir: ['components', 'components/vendor'],
+	js_dir: ['components'],
 	handlebars_dir : ['handlebars'],
 	handlebars_template : 'handlebars-templates.js',
 	root_dir: 'root'
