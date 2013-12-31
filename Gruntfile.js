@@ -78,7 +78,7 @@ module.exports = function(grunt) {
   		},
   		"uglify" : false,
   		"parseFiles" : true,
-  		"files" : ['build/components/main.js'],
+  		"files" : ['build/components/main.js', 'build/css/main.css']
 		}
 
 	});
