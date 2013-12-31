@@ -15,6 +15,8 @@ build: clean
 	@echo "${HR}"
 	@echo "exec grunt [autoprefixer]"
 	@grunt
+	@echo "minifying modernizr and bower components"
+	@grunt dev
 	@echo "requirejs optimizing main.js with uglify2 - concat only, no minifying"
 	@r.js -o app.build.js
 
@@ -26,6 +28,8 @@ dev: clean
 	@echo "${HR}"
 	@echo "exec grunt [autoprefixer]"
 	@grunt
+	@echo "minifying modernizr and bower components"
+	@grunt dev
 	@echo "requirejs optimizing main.js - concat only, no minifying"
 	@r.js -o app.build-watch.js
 
@@ -72,6 +76,7 @@ init:
 	@npm install grunt-contrib-handlebars
 	@npm install grunt-contrib-stylus
 	@npm install grunt-contrib-uglify
+	@npm install grunt-modernizr
 	@echo "Initialize node packages"
 	@echo "${HR}"
 	@cd tools; npm install;

@@ -23,7 +23,7 @@ if( !document.addEventListener ) {
 //if enquire.js is not required just load main and remove enquire.js from dependency list
 //requirejs(['main']);
 
-yepnope([
+Modernizr.load([
 	{
 		test: window.matchMedia,
 		nope: './components/bower/matchmedia/matchMedia.js',
@@ -31,4 +31,4 @@ yepnope([
 			requirejs(['main']);
 		} /* \complete */
 	}
-]); // \yepnope
+]); // \Modernizr.load

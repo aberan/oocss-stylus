@@ -49,11 +49,36 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 				files: {
-					'build/components/bower/modernizr/modernizr.js': 'src/components/bower/modernizr/modernizr.js',
+					'build/components/bower/modernizr/modernizr.js': 'src/components/bower/modernizr/modernizr.tmp.js',
 					'build/components/bower/yepnope/yepnope.js': 'src/components/bower/yepnope/yepnope.js',
 					'build/components/bower/requirejs/require.js': 'src/components/bower/requirejs/require.js'
 				}
 			}
+		},
+
+		modernizr: {
+			"devFile": 'src/components/bower/modernizr/modernizr.js',
+			"outputFile": 'src/components/bower/modernizr/modernizr.tmp.js',
+			"extra" : {
+	    	"shiv" : true,
+	    	"printshiv" : false,
+	    	"load" : true,
+	    	"mq" : false,
+	    	"cssclasses" : true
+	    },
+	    "extensibility" : {
+	      "addtest" : false,
+	      "prefixed" : false,
+	      "teststyles" : false,
+	      "testprops" : false,
+	      "testallprops" : false,
+	      "hasevents" : false,
+	      "prefixes" : false,
+	      "domprefixes" : false
+  		},
+  		"uglify" : false,
+  		"parseFiles" : true,
+  		"files" : ['build/components/main.js'],
 		}
 
 	});
@@ -69,9 +94,13 @@ module.exports = function(grunt) {
 	//hbs tasks
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
 
+	//modernizr optimizer tasks
+	grunt.loadNpmTasks("grunt-modernizr");
+
 	//register tasks
 	grunt.registerTask('css', ['stylus', 'autoprefixer']);
 	grunt.registerTask('default', ['css']);
 	grunt.registerTask('hbs', ['handlebars']);
-	grunt.registerTask('min', ['cssmin', 'uglify']);
+	grunt.registerTask('min', ['cssmin', 'modernizr', 'uglify']);
+	grunt.registerTask('dev', ['modernizr', 'uglify']);
 };
