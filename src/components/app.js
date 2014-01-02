@@ -1,24 +1,11 @@
-requirejs.config({
-	baseUrl : 'components',
-	paths : {
-		app: 'vendor',
-		bower: 'bower',
-		jquery: 'bower/jquery_new/jquery.min',
-		jquery_old: 'bower/jquery_old/jquery.min'
-	},
-	shim: {
+require.config({
+	baseUrl: 'components',
+	paths: {
+		jquery: (
+			!document.addEventListener ? 'bower/jquery_old/jquery.min' : 'bower/jquery_new/jquery.min'
+		)
 	}
 });
-
-if( !document.addEventListener ) {
-	requirejs.config({
-		map: {
-			'*': {
-				jquery: 'jquery_old'
-			}
-		}
-	});
-}
 
 //if enquire.js is not required just load main and remove enquire.js from dependency list
 //requirejs(['main']);
