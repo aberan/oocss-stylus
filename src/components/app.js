@@ -3,8 +3,7 @@ require.config({
 	paths: {
 		jquery: (
 			!document.addEventListener ? 'bower/jquery_old/jquery.min' : 'bower/jquery_new/jquery.min'
-		),
-		handlebars: 'components/bower/handlebars/handlebars.runtime.amd'
+		)
 	}
 });
 

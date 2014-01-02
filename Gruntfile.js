@@ -51,8 +51,7 @@ module.exports = function(grunt) {
 				files: {
 					'build/components/bower/modernizr/modernizr.js': 'src/components/bower/modernizr/modernizr.tmp.js',
 					'build/components/bower/yepnope/yepnope.js': 'src/components/bower/yepnope/yepnope.js',
-					'build/components/bower/requirejs/require.js': 'src/components/bower/requirejs/require.js',
-					'build/components/bower/handlebars/handlebars.runtime.amd.js': 'src/components/bower/handlebars/handlebars.runtime.amd.js'
+					'build/components/bower/requirejs/require.js': 'src/components/bower/requirejs/require.js'
 				}
 			}
 		},
