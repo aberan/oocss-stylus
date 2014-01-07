@@ -10,12 +10,10 @@
 define(function(require){
   var jQuery = require('jquery');
 
-  (function(window,undefined){
+  return (function(window,undefined){
 
-    var $ = window.jQuery || window.Cowboy || ( window.Cowboy = {} ),
-
-      // Internal method reference.
-      jq_throttle;
+    // Internal method reference.
+    var jq_throttle;
 
     // Method: jQuery.throttle
     //
