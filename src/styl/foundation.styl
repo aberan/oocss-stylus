@@ -301,17 +301,62 @@
   float right !important
 
 /* visibility helpers */
-.small-invisible
-  visibility hidden
+// .small-invisible
+//   visibility hidden
 
-.small-visible
-  visibility visible
+// .small-visible
+//   visibility visible
 
-.small-hidden
-    display none
+// .small-hidden
+//     display none
 
-.small-block
-  display block
+// .small-block
+//   display block
+
+//possibly add visibible helpers as well if needed
+.show-for-small-only,
+.show-for-small-up,
+.show-for-small,
+.show-for-small-down,
+.hide-for-medium-only,
+.hide-for-medium-up,
+.hide-for-medium,
+.show-for-medium-down,
+.hide-for-large-only,
+.hide-for-large-up,
+.hide-for-large,
+.show-for-large-down,
+.hide-for-xlarge-only,
+.hide-for-xlarge-up,
+.hide-for-xlarge,
+.show-for-xlarge-down,
+.hide-for-xxlarge-only,
+.hide-for-xxlarge-up,
+.hide-for-xxlarge,
+.show-for-xxlarge-down
+  display inherit !important
+
+.hide-for-small-only,
+.hide-for-small-up,
+.hide-for-small,
+.hide-for-small-down,
+.show-for-medium-only,
+.show-for-medium-up,
+.show-for-medium,
+.hide-for-medium-down,
+.show-for-large-only,
+.show-for-large-up,
+.show-for-large,
+.hide-for-large-down,
+.show-for-xlarge-only,
+.show-for-xlarge-up,
+.show-for-xlarge,
+.hide-for-xlarge-down,
+.show-for-xxlarge-only,
+.show-for-xxlarge-up,
+.show-for-xxlarge,
+.hide-for-xxlarge-down
+  display none !important
 
 
 @media f_med
@@ -658,17 +703,61 @@
     left auto
 
   /* visibility helpers */
-  .medium-invisible
-    visibility hidden
+  // .medium-invisible
+  //   visibility hidden
 
-  .medium-visible
-    visibility visible
+  // .medium-visible
+  //   visibility visible
 
-  .medium-hidden
-      display none
+  // .medium-hidden
+  //     display none
 
-  .medium-block
-    display block
+  // .medium-block
+  //   display block
+
+  .hide-for-small-only,
+  .show-for-small-up,
+  .hide-for-small,
+  .hide-for-small-down,
+  .show-for-medium-only,
+  .show-for-medium-up,
+  .show-for-medium,
+  .show-for-medium-down,
+  .hide-for-large-only,
+  .hide-for-large-up,
+  .hide-for-large,
+  .show-for-large-down,
+  .hide-for-xlarge-only,
+  .hide-for-xlarge-up,
+  .hide-for-xlarge,
+  .show-for-xlarge-down,
+  .hide-for-xxlarge-only,
+  .hide-for-xxlarge-up,
+  .hide-for-xxlarge,
+  .show-for-xxlarge-down
+    display inherit !important
+
+  .show-for-small-only,
+  .hide-for-small-up,
+  .show-for-small,
+  .show-for-small-down,
+  .hide-for-medium-only,
+  .hide-for-medium-up,
+  .hide-for-medium,
+  .hide-for-medium-down,
+  .show-for-large-only,
+  .show-for-large-up,
+  .show-for-large,
+  .hide-for-large-down,
+  .show-for-xlarge-only,
+  .show-for-xlarge-up,
+  .show-for-xlarge,
+  .hide-for-xlarge-down,
+  .show-for-xxlarge-only,
+  .show-for-xxlarge-up,
+  .show-for-xxlarge,
+  .hide-for-xxlarge-down
+    display none !important
 
 @media f_large
   .large-push-1
@@ -904,17 +993,61 @@
     float right !important
 
   /* visibility helpers */
-  .large-invisible
-    visibility hidden
+  // .large-invisible
+  //   visibility hidden
 
-  .large-visible
-    visibility visible
+  // .large-visible
+  //   visibility visible
 
-  .large-hidden
-      display none
+  // .large-hidden
+  //     display none
 
-  .large-block
-    display block
+  // .large-block
+  //   display block
+
+  .hide-for-small-only,
+  .show-for-small-up,
+  .hide-for-small,
+  .hide-for-small-down,
+  .hide-for-medium-only,
+  .show-for-medium-up,
+  .hide-for-medium,
+  .hide-for-medium-down,
+  .show-for-large-only,
+  .show-for-large-up,
+  .show-for-large,
+  .show-for-large-down,
+  .hide-for-xlarge-only,
+  .hide-for-xlarge-up,
+  .hide-for-xlarge,
+  .show-for-xlarge-down,
+  .hide-for-xxlarge-only,
+  .hide-for-xxlarge-up,
+  .hide-for-xxlarge,
+  .show-for-xxlarge-down
+    display inherit !important
+
+  .show-for-small-only,
+  .hide-for-small-up,
+  .show-for-small,
+  .show-for-small-down,
+  .show-for-medium-only,
+  .hide-for-medium-up,
+  .show-for-medium,
+  .show-for-medium-down,
+  .hide-for-large-only,
+  .hide-for-large-up,
+  .hide-for-large,
+  .hide-for-large-down,
+  .show-for-xlarge-only,
+  .show-for-xlarge-up,
+  .show-for-xlarge,
+  .hide-for-xlarge-down,
+  .show-for-xxlarge-only,
+  .show-for-xxlarge-up,
+  .show-for-xxlarge,
+  .hide-for-xxlarge-down
+    display none !important
 
 @media f_xlarge
   .xlarge-push-1
@@ -1150,17 +1283,61 @@
     float right !important
 
   /* visibility helpers */
-  .xlarge-invisible
-    visibility hidden
+  // .xlarge-invisible
+  //   visibility hidden
 
-  .xlarge-visible
-    visibility visible
+  // .xlarge-visible
+  //   visibility visible
 
-  .xlarge-hidden
-      display none
+  // .xlarge-hidden
+  //     display none
 
-  .xlarge-block
-    display block
+  // .xlarge-block
+  //   display block
+
+  .hide-for-small-only,
+  .show-for-small-up,
+  .hide-for-small,
+  .hide-for-small-down,
+  .hide-for-medium-only,
+  .show-for-medium-up,
+  .hide-for-medium,
+  .hide-for-medium-down,
+  .hide-for-large-only,
+  .show-for-large-up,
+  .hide-for-large,
+  .hide-for-large-down,
+  .show-for-xlarge-only,
+  .show-for-xlarge-up,
+  .show-for-xlarge,
+  .show-for-xlarge-down,
+  .hide-for-xxlarge-only,
+  .hide-for-xxlarge-up,
+  .hide-for-xxlarge,
+  .show-for-xxlarge-down
+    display inherit !important
+
+  .show-for-small-only,
+  .hide-for-small-up,
+  .show-for-small,
+  .show-for-small-down,
+  .show-for-medium-only,
+  .hide-for-medium-up,
+  .show-for-medium,
+  .show-for-medium-down,
+  .show-for-large-only,
+  .hide-for-large-up,
+  .show-for-large,
+  .show-for-large-down,
+  .hide-for-xlarge-only,
+  .hide-for-xlarge-up,
+  .hide-for-xlarge,
+  .hide-for-xlarge-down,
+  .show-for-xxlarge-only,
+  .show-for-xxlarge-up,
+  .show-for-xxlarge,
+  .hide-for-xxlarge-down
+    display none !important
 
 @media f_xxlarge
   .xxlarge-push-1
@@ -1396,17 +1573,61 @@
     float right !important
 
   /* visibility helpers */
-  .xxlarge-invisible
-    visibility hidden
+  // .xxlarge-invisible
+  //   visibility hidden
 
-  .xxlarge-visible
-    visibility visible
+  // .xxlarge-visible
+  //   visibility visible
 
-  .xxlarge-hidden
-      display none
+  // .xxlarge-hidden
+  //     display none
 
-  .xxlarge-block
-    display block
+  // .xxlarge-block
+  //   display block
+
+  .hide-for-small-only,
+  .show-for-small-up,
+  .hide-for-small,
+  .hide-for-small-down,
+  .hide-for-medium-only,
+  .show-for-medium-up,
+  .hide-for-medium,
+  .hide-for-medium-down,
+  .hide-for-large-only,
+  .show-for-large-up,
+  .hide-for-large,
+  .hide-for-large-down,
+  .hide-for-xlarge-only,
+  .show-for-xlarge-up,
+  .hide-for-xlarge,
+  .hide-for-xlarge-down,
+  .show-for-xxlarge-only,
+  .show-for-xxlarge-up,
+  .show-for-xxlarge,
+  .show-for-xxlarge-down
+    display inherit !important
+
+  .show-for-small-only,
+  .hide-for-small-up,
+  .show-for-small,
+  .show-for-small-down,
+  .show-for-medium-only,
+  .hide-for-medium-up,
+  .show-for-medium,
+  .show-for-medium-down,
+  .show-for-large-only,
+  .hide-for-large-up,
+  .show-for-large,
+  .show-for-large-down,
+  .show-for-xlarge-only,
+  .hide-for-xlarge-up,
+  .show-for-xlarge,
+  .show-for-xlarge-down,
+  .hide-for-xxlarge-only,
+  .hide-for-xxlarge-up,
+  .hide-for-xxlarge,
+  .hide-for-xxlarge-down
+    display none !important
 
 /* block grids */
 [class*="block-grid-"]
@@ -2036,3 +2257,45 @@
 
   .xxlarge-block-grid-12 > li:nth-of-type(12n+1)
     clear both
+
+
+/* Orientation targeting */
+.show-for-landscape,
+.hide-for-portrait
+  display inherit !important
+
+.hide-for-landscape,
+.show-for-portrait
+  display none !important
+
+
+@media only screen and (orientation: landscape)
+  .show-for-landscape,
+  .hide-for-portrait
+    display inherit !important
+
+  .hide-for-landscape,
+  .show-for-portrait
+    display none !important
+
+@media only screen and (orientation: portrait)
+  .show-for-portrait,
+  .hide-for-landscape
+    display inherit !important
+
+  .hide-for-portrait,
+  .show-for-landscape
+    display none !important
+
+/* Touch-enabled device targeting */
+.show-for-touch
+  display none !important
+
+.hide-for-touch
+  display inherit !important
+
+.touch .show-for-touch
+  display inherit !important
+
+.touch .hide-for-touch
+  display none !important
