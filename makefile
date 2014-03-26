@@ -1,7 +1,8 @@
 DATE=$(shell date +%I:%M%p)
 HR=\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 CHECK=\033[32m✔\033[39m
-BUILDDIR=build
+BUILDDIR=deploy/sites/all/themes/nxnw
+DEVDIR = build
 
 #
 # BUILD DOCS
@@ -13,8 +14,9 @@ build: clean
 	@echo "${HR}\n"
 	@echo "NXNW Build                                 ${CHECK} Done - ${DATE}"
 	@echo "${HR}"
-	@echo "exec grunt [autoprefixer]"
-	@grunt
+	@grunt stylus
+	@echo "Authprefixing css"
+	@grunt autoprefixer
 	@echo "minifying modernizr and bower components"
 	@grunt dev
 	@echo "requirejs optimizing main.js with uglify2 - concat only, no minifying"
@@ -33,18 +35,29 @@ dev: clean
 	@echo "requirejs optimizing main.js - concat only, no minifying"
 	@r.js -o app.build-watch.js
 
-production:
-	@echo "Deploying project"
-	@node tools/build
+production: pclean
+	@echo "Deploying production code"
+	@node tools/deploy
 	@echo "${HR}\n"
-	@echo "NXNW Build                                 ${CHECK} Done - ${DATE}"
+	@echo "NXNW Deploy                                 ${CHECK} Done - ${DATE}"
 	@echo "${HR}"
-	@echo "exec grunt [autoprefixer]"
-	@grunt
 	@echo "minifying css/bower components"
-	@grunt min
+	@grunt min --env=deploy
 	@echo "minifying js"
-	@r.js -o app.build-prod.js
+	@r.js -o app.build-deploy.js
+	@echo copying over minified main.js
+	@mv ${BUILDDIR}/components/tmp/main.js ${BUILDDIR}/components
+	@mv ${BUILDDIR}/components/tmp/app.js ${BUILDDIR}/components
+	@rm -rf ${BUILDDIR}/components/tmp
+
+devpush: pclean
+	@echo "Deploying dev code"
+	@node tools/push
+	@echo "${HR}\n"
+	@echo "NXNW Deploy                                 ${CHECK} Done - ${DATE}"
+	@echo "${HR}"
+	@echo "adding Modernizr classes"
+	@grunt modjs --env=deploy
 
 #
 # START BUILD AND WATCH
@@ -54,7 +67,11 @@ bw: build watch
 
 dw: dev watchdev
 
-prod: clean production
+pw: devpush watchpush
+
+prod: production
+
+push: devpush
 
 
 #
@@ -87,9 +104,23 @@ init:
 #
 
 clean:
-	@node tools/clean
+	@rm -rf ${DEVDIR}
+	@mkdir ${DEVDIR}
 	@echo "${HR}"
 	@echo "NXNW Clean                                 ${CHECK} Done - ${DATE}"
+	@echo "${HR}"
+
+pclean:
+	@rm -rf ${BUILDDIR}/components
+	@rm -rf ${BUILDDIR}/css
+	@rm -rf ${BUILDDIR}/img
+	@mkdir ${BUILDDIR}/components
+	@mkdir ${BUILDDIR}/components/tmp
+	@mkdir ${BUILDDIR}/components/tmp/bower
+	@mkdir ${BUILDDIR}/css
+	@mkdir ${BUILDDIR}/img
+	@echo "${HR}"
+	@echo "NXNW Deploy Clean                                 ${CHECK} Done - ${DATE}"
 	@echo "${HR}"
 
 
@@ -106,3 +137,8 @@ watchdev:
 	@echo "${HR}"
 	@echo "Start project watch..."
 	@node tools/dev
+
+watchpush:
+	@echo "${HR}"
+	@echo "Start project watch..."
+	@node tools/deploy-watch

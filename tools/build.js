@@ -15,10 +15,10 @@ var stylus_root = config.stylus_root;
 var stylus_build_dir = config.stylus_build_dir;
 
 //nuke build dir
-fs.rmrfSync( build );
+//fs.rmrfSync( build );
 
 //recreate build dir
-fs.mkdirSync(build, '755');
+//fs.mkdirSync(build, '755');
 
 //recursively copy over build dirs config.build_dir via for loop
 console.log('Building build dirs...');

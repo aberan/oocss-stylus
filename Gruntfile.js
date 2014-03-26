@@ -1,9 +1,10 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
+	path: grunt.option('env') === 'deploy' ? 'deploy/sites/all/themes/nxnw' : 'build',
 
 		autoprefixer: {
 			single_file: {
-				src: 'build/css/main.css'
+				src: '<%= path %>/css/main.css'
 			}
 		},
 
@@ -27,8 +28,12 @@ module.exports = function(grunt) {
 
 		cssmin: {
 			minify: {
-				src: 'build/css/main.css',
-				dest: 'build/css/main.css',
+				src: '<%= path %>/css/main.css',
+				dest: '<%= path %>/css/main.css'
+			},
+			fonts: {
+				src: '<%= path %>/css/fonts.css',
+				dest: '<%= path %>/css/fonts.css'
 			}
 		},
 
@@ -38,10 +43,10 @@ module.exports = function(grunt) {
 					compress: false,
 					linenos: true,
 					"include css": true,
-					paths: ['build/components/bower/']
+					paths: ['src/components/bower/normalize-css/', 'src/css/vendor/']
 				},
 				files: {
-					'build/css/main.css': 'src/styl/main.styl'
+					'<%= path %>/css/main.css': 'src/styl/main.styl'
 				}
 			}
 		},
@@ -49,9 +54,11 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 				files: {
-					'build/components/bower/modernizr/modernizr.js': 'src/components/bower/modernizr/modernizr.tmp.js',
-					'build/components/bower/yepnope/yepnope.js': 'src/components/bower/yepnope/yepnope.js',
-					'build/components/bower/requirejs/require.js': 'src/components/bower/requirejs/require.js'
+					'<%= path %>/components/modernizr.min.js': 'src/components/bower/modernizr/modernizr.tmp.js',
+					'<%= path %>/components/matchMedia.min.js': 'src/components/matchMedia.js',
+					'<%= path %>/components/require.min.js': 'src/components/bower/requirejs/require.js',
+					'<%= path %>/components/jquery.old.min.js': 'src/components/bower/jquery_old/jquery.min.js',
+					'<%= path %>/components/jquery.min.js': 'src/components/bower/jquery_new/jquery.min.js'
 				}
 			}
 		},
@@ -60,25 +67,26 @@ module.exports = function(grunt) {
 			"devFile": 'src/components/bower/modernizr/modernizr.js',
 			"outputFile": 'src/components/bower/modernizr/modernizr.tmp.js',
 			"extra" : {
-	    	"shiv" : true,
-	    	"printshiv" : false,
-	    	"load" : true,
-	    	"mq" : false,
-	    	"cssclasses" : true
-	    },
-	    "extensibility" : {
-	      "addtest" : false,
-	      "prefixed" : false,
-	      "teststyles" : false,
-	      "testprops" : false,
-	      "testallprops" : false,
-	      "hasevents" : false,
-	      "prefixes" : false,
-	      "domprefixes" : false
-  		},
-  		"uglify" : false,
-  		"parseFiles" : true,
-  		"files" : ['build/components/main.js', 'build/css/main.css']
+				"shiv" : true,
+				"printshiv" : false,
+				"load" : true,
+				"mq" : false,
+				"cssclasses" : true
+			},
+			"extensibility" : {
+				"addtest" : true,
+				"prefixed" : true,
+				"teststyles" : true,
+				"testprops" : true,
+				"testallprops" : true,
+				"hasevents" : true,
+				"prefixes" : true,
+				"domprefixes" : true
+			},
+			"uglify" : false,
+			"parseFiles" : true,
+			"tests": ['csstransitions', 'flexbox', 'touch', 'csstransforms', 'cssanimations'],
+			"files" : ['<%= path %>/components/main.js', '<%= path %>/css/main.css']
 		}
 
 	});
@@ -98,9 +106,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-modernizr");
 
 	//register tasks
+	var env = grunt.option('env') || 'dev';
+
+	grunt.registerTask('modjs', ['stylus', 'modernizr', 'autoprefixer', 'uglify']);
+	grunt.registerTask('modcss', ['stylus', 'modernizr', 'autoprefixer']);
 	grunt.registerTask('css', ['stylus', 'autoprefixer']);
 	grunt.registerTask('default', ['css']);
+	grunt.registerTask('prefixer', ['autoprefixer']);
 	grunt.registerTask('hbs', ['handlebars']);
-	grunt.registerTask('min', ['cssmin', 'modernizr', 'uglify']);
+	grunt.registerTask('min', ['stylus', 'modernizr', 'autoprefixer', 'cssmin', 'uglify']);
 	grunt.registerTask('dev', ['modernizr', 'uglify']);
 };

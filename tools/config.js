@@ -3,8 +3,11 @@
 var config = {
 	src : 'src',
 	build : 'build',
+	deploy: 'deploy/sites/all/themes/nxnw',
 	build_dir : ['components', 'css', 'img'],
-	watch_dir : ['css', 'css/vendor', 'css/fonts', 'img', 'media'],
+	deploy_dir: ['css', 'img'],
+	push_dir: ['components', 'css', 'img'],
+	watch_dir : ['css', 'css/vendor', 'css/fonts', 'img', 'media', 'components', 'components/bower', 'components/ajax'],
 	template_dir : ['templates'],
 	template_inc : ['includes'],
 	stylus_dir : ['styl', 'styl/mixins'],
@@ -13,7 +16,10 @@ var config = {
 	js_dir: ['components'],
 	handlebars_dir : ['handlebars'],
 	handlebars_template : 'handlebars-templates.js',
-	root_dir: 'root'
+	root_dir: 'root',
+	bower: ['components/bower/fastclick/lib/fastclick.js'],
+	bower_tmp: 'components/tmp/bower',
+	bower_push_tmp: 'components/bower'
 };
 
 module.exports = config;

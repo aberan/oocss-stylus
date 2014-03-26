@@ -46,19 +46,43 @@ function parse_single_template(src_path, build_path, file) {
 	}
 }
 
-function compile_stylus(){
+function compile_stylus(env){
 	console.log('Compiling stylus + autoprefixer');
-	exec('grunt css');
+	var flag = typeof env !== 'undefined' && env !== '' ? ' --env='+env : '';
+	exec('grunt css'+flag);
 }
 
-function compile_js(file, lite) {
+function compile_js(file, lite, env) {
 	console.log('Compiling js with requireJS');
-	if ( lite ) {
-		exec('r.js -o app.build-watch.js');
+	if ( typeof env !== 'undefined' ) {
+		if ( env === 'deploy' ) {
+			exec('r.js -o app.build-deploy.js');
+		}
+		else { //push
+			exec('r.js -o app.build-push.js', function() {
+				var deploy_dir = 'deploy/sites/all/themes/nxnw/components',
+				main = 'main.js',
+				app = 'app.js';
+
+				fs.unlink(deploy_dir+'/'+main, function() {
+					fs.copy(deploy_dir+'/tmp/'+main, deploy_dir+'/'+main);
+				});
+
+				fs.unlink(deploy_dir+'/'+app, function() {
+					fs.copy(deploy_dir+'/tmp/'+app, deploy_dir+'/'+app);
+				});
+			});
+		}
 	}
-	else { //need uglify because of global_defs
-		exec('r.js -o app.build.js');
+	else {
+		if ( lite ) {
+			exec('r.js -o app.build-watch.js');
+		}
+		else { //need uglify because of global_defs
+			exec('r.js -o app.build.js');
+		}
 	}
+
 }
 
 function compile_handlebars(file, requireJS, lite) {
