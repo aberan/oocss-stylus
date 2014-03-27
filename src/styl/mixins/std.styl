@@ -723,3 +723,20 @@ background-linear-gradient(startPoint, startColor, startInterval, endColor, endI
   background-image -ms-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
   background-image -o-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
   background-image linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+
+
+//helper mixins
+faux_column()
+  margin-bottom -10000px
+  padding-bottom 10000px
+
+abs()
+  position absolute
+  top 0
+  left 0
+  height 100%
+  width 100%
+
+opacity(arg)
+  -ms-filter  \"s('progid:DXImageTransform.Microsoft.Alpha(Opacity=%s)', arg * 100)\"
+  opacity arg
