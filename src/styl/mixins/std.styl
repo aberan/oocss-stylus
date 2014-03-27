@@ -724,6 +724,9 @@ background-linear-gradient(startPoint, startColor, startInterval, endColor, endI
   background-image -o-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
   background-image linear-gradient(startPoint, startColor startInterval, endColor endInterval)
 
+opacity(arg)
+  -ms-filter  \"s('progid:DXImageTransform.Microsoft.Alpha(Opacity=%s)', arg * 100)\"
+  opacity arg
 
 //helper mixins
 faux_column()
@@ -736,7 +739,3 @@ abs()
   left 0
   height 100%
   width 100%
-
-opacity(arg)
-  -ms-filter  \"s('progid:DXImageTransform.Microsoft.Alpha(Opacity=%s)', arg * 100)\"
-  opacity arg
