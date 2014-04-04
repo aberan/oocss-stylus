@@ -64,29 +64,28 @@ module.exports = function(grunt) {
 		},
 
 		modernizr: {
-			bust: {
+			dist: {
 				"devFile": 'src/components/bower/modernizr/modernizr.js',
 				"outputFile": 'src/components/bower/modernizr/modernizr.tmp.js',
 				"extra" : {
 					"shiv" : true,
-					"printshiv" : false,
+					"printshiv" : true,
 					"load" : true,
 					"mq" : false,
 					"cssclasses" : true
 				},
 				"extensibility" : {
-					"addtest" : true,
-					"prefixed" : true,
-					"teststyles" : true,
-					"testprops" : true,
-					"testallprops" : true,
-					"hasevents" : true,
-					"prefixes" : true,
-					"domprefixes" : true
+					"addtest" : false,
+					"teststyles" : false,
+					"testprops" : false,
+					"testallprops" : false,
+					"hasevents" : false,
+					"prefixes" : false,
+					"domprefixes" : false
 				},
 				"uglify" : false,
 				"parseFiles" : true,
-				"tests": ['csstransitions', 'flexbox', 'touch', 'csstransforms', 'cssanimations'],
+				"tests": [],
 				"files": {
 					"src": ['<%= path %>/components/main.js', '<%= path %>/css/main.css']
 				}
@@ -112,12 +111,12 @@ module.exports = function(grunt) {
 	//register tasks
 	var env = grunt.option('env') || 'dev';
 
-	grunt.registerTask('modjs', ['stylus', 'modernizr:bust', 'autoprefixer', 'uglify']);
-	grunt.registerTask('modcss', ['stylus', 'modernizr:bust', 'autoprefixer']);
+	grunt.registerTask('modjs', ['stylus', 'modernizr', 'autoprefixer', 'uglify']);
+	grunt.registerTask('modcss', ['stylus', 'modernizr', 'autoprefixer']);
 	grunt.registerTask('css', ['stylus', 'autoprefixer']);
 	grunt.registerTask('default', ['css']);
 	grunt.registerTask('prefixer', ['autoprefixer']);
 	grunt.registerTask('hbs', ['handlebars']);
-	grunt.registerTask('min', ['stylus', 'modernizr:bust', 'autoprefixer', 'cssmin', 'uglify']);
-	grunt.registerTask('dev', ['modernizr:bust', 'uglify']);
+	grunt.registerTask('min', ['stylus', 'modernizr', 'autoprefixer', 'cssmin', 'uglify']);
+	grunt.registerTask('dev', ['modernizr', 'uglify']);
 };
