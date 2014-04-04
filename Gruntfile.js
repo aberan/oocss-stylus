@@ -55,38 +55,42 @@ module.exports = function(grunt) {
 			my_target: {
 				files: {
 					'<%= path %>/components/modernizr.min.js': 'src/components/bower/modernizr/modernizr.tmp.js',
-					'<%= path %>/components/matchMedia.min.js': 'src/components/matchMedia.js',
+					'<%= path %>/components/matchMedia.min.js': 'src/components/bower/matchmedia/matchMedia.js',
 					'<%= path %>/components/require.min.js': 'src/components/bower/requirejs/require.js',
 					'<%= path %>/components/jquery.old.min.js': 'src/components/bower/jquery_old/jquery.min.js',
-					'<%= path %>/components/jquery.min.js': 'src/components/bower/jquery_new/jquery.min.js'
+					'<%= path %>/components/jquery.min.js': 'src/components/bower/jquery_new/dist/jquery.min.js'
 				}
 			}
 		},
 
 		modernizr: {
-			"devFile": 'src/components/bower/modernizr/modernizr.js',
-			"outputFile": 'src/components/bower/modernizr/modernizr.tmp.js',
-			"extra" : {
-				"shiv" : true,
-				"printshiv" : false,
-				"load" : true,
-				"mq" : false,
-				"cssclasses" : true
-			},
-			"extensibility" : {
-				"addtest" : true,
-				"prefixed" : true,
-				"teststyles" : true,
-				"testprops" : true,
-				"testallprops" : true,
-				"hasevents" : true,
-				"prefixes" : true,
-				"domprefixes" : true
-			},
-			"uglify" : false,
-			"parseFiles" : true,
-			"tests": ['csstransitions', 'flexbox', 'touch', 'csstransforms', 'cssanimations'],
-			"files" : ['<%= path %>/components/main.js', '<%= path %>/css/main.css']
+			bust: {
+				"devFile": 'src/components/bower/modernizr/modernizr.js',
+				"outputFile": 'src/components/bower/modernizr/modernizr.tmp.js',
+				"extra" : {
+					"shiv" : true,
+					"printshiv" : false,
+					"load" : true,
+					"mq" : false,
+					"cssclasses" : true
+				},
+				"extensibility" : {
+					"addtest" : true,
+					"prefixed" : true,
+					"teststyles" : true,
+					"testprops" : true,
+					"testallprops" : true,
+					"hasevents" : true,
+					"prefixes" : true,
+					"domprefixes" : true
+				},
+				"uglify" : false,
+				"parseFiles" : true,
+				"tests": ['csstransitions', 'flexbox', 'touch', 'csstransforms', 'cssanimations'],
+				"files": {
+					"src": ['<%= path %>/components/main.js', '<%= path %>/css/main.css']
+				}
+			}
 		}
 
 	});
@@ -108,12 +112,12 @@ module.exports = function(grunt) {
 	//register tasks
 	var env = grunt.option('env') || 'dev';
 
-	grunt.registerTask('modjs', ['stylus', 'modernizr', 'autoprefixer', 'uglify']);
-	grunt.registerTask('modcss', ['stylus', 'modernizr', 'autoprefixer']);
+	grunt.registerTask('modjs', ['stylus', 'modernizr:bust', 'autoprefixer', 'uglify']);
+	grunt.registerTask('modcss', ['stylus', 'modernizr:bust', 'autoprefixer']);
 	grunt.registerTask('css', ['stylus', 'autoprefixer']);
 	grunt.registerTask('default', ['css']);
 	grunt.registerTask('prefixer', ['autoprefixer']);
 	grunt.registerTask('hbs', ['handlebars']);
-	grunt.registerTask('min', ['stylus', 'modernizr', 'autoprefixer', 'cssmin', 'uglify']);
-	grunt.registerTask('dev', ['modernizr', 'uglify']);
+	grunt.registerTask('min', ['stylus', 'modernizr:bust', 'autoprefixer', 'cssmin', 'uglify']);
+	grunt.registerTask('dev', ['modernizr:bust', 'uglify']);
 };
