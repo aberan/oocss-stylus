@@ -10,6 +10,7 @@ define(function(require){
   require('transition.end-3.0.3');
   require('enquire.min');
   require('throttle-debounce');
+  require('bower/fastclick');
   //remove once moved on backend
   require('template');
 
@@ -17,7 +18,9 @@ define(function(require){
 		//start of user code
 		var LOCALSITE = {
 			common: {
-				_init: function(){
+				init: function(){
+					//init fastclick
+					FastClick.attach(document.body);
 				}  /* \LOCALSITE.common.init */
 			} /* \LOCALSITE.common */
 		}; /* \LOCALSITE */
@@ -25,7 +28,7 @@ define(function(require){
 		var DOMEXEC = {
 			exec: function(master, a) {
 				var ns = LOCALSITE,
-					action = ( a === undefined ) ? "_init" : action;
+					action = ( a === undefined ) ? "init" : a;
 
 				if ( master !== "" && ns[master] && typeof ns[master][action] == "function" ) {
 					ns[master][action]();

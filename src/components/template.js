@@ -11,7 +11,18 @@ define(function(require){
 		//start of user code
 		var LOCALSITE = {
 			common: {
-				_init: function(){
+				init: function(){
+					//sample handlebars code
+					// var nav = tmpl['link'];
+					// var context = {
+					// 	links : [
+					// 		{ title: 'Catalog', url: 'catalog.html' },
+					// 		{ title: 'Inspiration', url: 'inspiration.html' },
+					// 		{ title: 'Help', url: 'help.html' },
+					// 		{ title: 'Contact', url: 'contact.html' }
+					// 	]
+					// };
+					// $('#main-menu').html(nav(context));
 				}  /* \LOCALSITE.common.init */
 			}, /* \LOCALSITE.common */
 
@@ -19,7 +30,8 @@ define(function(require){
 
 		var DOMEXEC = {
 			exec: function(master, a) {
-				var ns = LOCALSITE, action = ( a === undefined ) ? "_init" : a;
+				var ns = LOCALSITE,
+					action = ( a === undefined ) ? "init" : a;
 
 				if ( master !== "" && ns[master] && typeof ns[master][action] == "function" ) {
 					ns[master][action]();

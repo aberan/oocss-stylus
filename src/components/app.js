@@ -1,10 +1,11 @@
-var deploy = false,
- srcPath = deploy ? '/sites/all/themes/nxnw/components/' : '/components/';
+//change srcPath for deploy to match directory structure of app if necessary
+var deploy = true,
+ srcPath = deploy ? '/components/' : '/components/';
 
 require.config({
 	baseUrl: srcPath,
 	paths: {
-		app: '/sites/all/themes/nxnw/components/',
+		app: srcPath,
 		jquery: (
 			!document.addEventListener ? 'jquery.old.min' : 'jquery.min'
 		)
