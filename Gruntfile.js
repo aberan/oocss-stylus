@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
-	path: grunt.option('env') === 'deploy' ? 'deploy/sites/all/themes/nxnw' : 'build',
+	path: grunt.option('env') === 'deploy' ? 'deploy' : 'build',
 
 		autoprefixer: {
 			single_file: {

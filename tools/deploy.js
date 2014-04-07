@@ -27,6 +27,7 @@ for ( var i = 0, z = dirs.length; i < z; i++ ) {
 //copy over all bower files
 for( var i = 0, z = bower.length; i < z; i++ ) {
   var file = bower[i].split('/').pop();
+
   fs.copy(src+'/'+bower[i], deploy+'/'+bower_tmp+'/'+file, function (err) {
     if (err) {
       console.log(err);
@@ -44,11 +45,5 @@ function add_dir(src, deploy, path) {
       console.log(err);
       throw err;
     }
-    /*else {
-      if ( path == 'css' ) {
-        console.log('Compiling stylus files...');
-        common.compile('deploy');
-      }
-    }*/
   });
 }

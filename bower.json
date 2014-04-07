@@ -11,6 +11,7 @@
   	"nwmatcher": "*",
   	"respond": "*",
   	"matchmedia": "*",
-  	"normalize-css": "*"
+  	"normalize-css": "*",
+    "fastclick": "*"
   }
 }

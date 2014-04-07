@@ -1,7 +1,7 @@
 DATE=$(shell date +%I:%M%p)
 HR=\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 CHECK=\033[32m✔\033[39m
-BUILDDIR=deploy/sites/all/themes/nxnw
+BUILDDIR=deploy
 DEVDIR = build
 
 #
@@ -32,8 +32,6 @@ dev: clean
 	@grunt
 	@echo "minifying modernizr and bower components"
 	@grunt dev
-	@echo "requirejs optimizing main.js - concat only, no minifying"
-	@r.js -o app.build-watch.js
 
 production: pclean
 	@echo "Deploying production code"
@@ -41,14 +39,15 @@ production: pclean
 	@echo "${HR}\n"
 	@echo "NXNW Deploy                                 ${CHECK} Done - ${DATE}"
 	@echo "${HR}"
-	@echo "minifying css/bower components"
-	@grunt min --env=deploy
 	@echo "minifying js"
 	@r.js -o app.build-deploy.js
 	@echo copying over minified main.js
 	@mv ${BUILDDIR}/components/tmp/main.js ${BUILDDIR}/components
 	@mv ${BUILDDIR}/components/tmp/app.js ${BUILDDIR}/components
 	@rm -rf ${BUILDDIR}/components/tmp
+	@echo "minifying css/bower components"
+	@grunt min --env=deploy
+
 
 devpush: pclean
 	@echo "Deploying dev code"

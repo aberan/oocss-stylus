@@ -13,12 +13,8 @@ var handlebars_template = config.handlebars_template;
 var root_dir = config.root_dir;
 var stylus_root = config.stylus_root;
 var stylus_build_dir = config.stylus_build_dir;
-
-//nuke build dir
-//fs.rmrfSync( build );
-
-//recreate build dir
-//fs.mkdirSync(build, '755');
+var bower = config.bower;
+var bower_tmp = config.bower_push_tmp;
 
 //recursively copy over build dirs config.build_dir via for loop
 console.log('Building build dirs...');
@@ -53,6 +49,21 @@ function add_dir(src, build, path) {
     if (err) {
       console.log(err);
       throw err;
+    }
+    else {
+      if ( path === 'components' ) {
+        //copy over all bower files after dir has been created
+        for( var i = 0, z = bower.length; i < z; i++ ) {
+          var file = bower[i].split('/').pop();
+          fs.copy(src+'/'+bower[i], build+'/'+bower_tmp+'/'+file, function (err) {
+            if (err) {
+              console.log(err);
+              throw err;
+            }
+            console.log('added bower file: '+file);
+          });
+        }
+      }
     }
   });
 }

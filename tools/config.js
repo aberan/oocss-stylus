@@ -3,7 +3,7 @@
 var config = {
 	src : 'src',
 	build : 'build',
-	deploy: 'deploy/sites/all/themes/nxnw',
+	deploy: 'deploy',
 	build_dir : ['components', 'css', 'img'],
 	deploy_dir: ['css', 'img'],
 	push_dir: ['components', 'css', 'img'],

@@ -1,7 +1,7 @@
 ({
 	appDir: "src/components",
 	baseUrl: ".",
-	dir: "deploy/sites/all/themes/nxnw/components/tmp",
+	dir: "deploy/components/tmp",
 	keepBuildDir: true,
 	generateSourceMaps: false,
 	preserveLicenseComments: false,

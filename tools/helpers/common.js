@@ -60,7 +60,7 @@ function compile_js(file, lite, env) {
 		}
 		else { //push
 			exec('r.js -o app.build-push.js', function() {
-				var deploy_dir = 'deploy/sites/all/themes/nxnw/components',
+				var deploy_dir = 'deploy',
 				main = 'main.js',
 				app = 'app.js';
 
