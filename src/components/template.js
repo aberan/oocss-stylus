@@ -5,7 +5,7 @@
 
 define(function(require){
   var jQuery = require('jquery');
-  var tmpl = require('handlebars-templates');
+  //var tmpl = require('handlebars-templates');
 
 	(function ($) {
 		//start of user code
