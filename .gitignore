@@ -38,3 +38,17 @@ npm-debug.log
 node_modules
 /testvagrant
 package.box
+/tools
+
+# Prototype dir #
+#################
+/build
+
+# Build tools #
+###############
+.bowerrc
+Gruntfile.js
+README.md
+app.build*.js
+bower.json
+makefile
