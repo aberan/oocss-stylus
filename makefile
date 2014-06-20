@@ -99,6 +99,8 @@ init:
 	@echo "${HR}"
 	@echo "Init Vagrant"
 	@cd vagrant; vagrant up; vagrant box update;
+	@echo "${HR}"
+	@echo "Make sure to change the default port from 9000!!!"
 
 #
 # CLEAN THE BUILD DIRECTORY
