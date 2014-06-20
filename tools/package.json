@@ -11,6 +11,8 @@
         "html" : "*",
         "path" : "*",
         "forever" : "*",
-        "stylus" : "*"
+        "stylus" : "*",
+        "stylus-import-tree": "*",
+        "gaze": "*"
     }
 }
