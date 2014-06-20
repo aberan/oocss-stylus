@@ -100,7 +100,7 @@ init:
 	@echo "Init Vagrant"
 	@cd vagrant; vagrant up; vagrant box update;
 	@echo "${HR}"
-	@echo "Make sure to change the default port from 9000!!!"
+	@echo "MAKE SURE TO CHANGE THE DEFAULT PORT FROM 9000 AND SSH FROM 3000!!!"
 
 #
 # CLEAN THE BUILD DIRECTORY
