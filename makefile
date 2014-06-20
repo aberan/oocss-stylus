@@ -96,7 +96,9 @@ init:
 	@echo "Initialize node packages"
 	@echo "${HR}"
 	@cd tools; npm install;
-
+        @echo "${HR}"
+        @echo "Init Vagrant"
+        @cd ../vagrant; vagrant up; vagrant box update;
 
 #
 # CLEAN THE BUILD DIRECTORY
