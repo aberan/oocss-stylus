@@ -78,6 +78,8 @@ push: devpush
 #
 
 init:
+	@echo "Nuke old .git"
+	@rm -rf .git;
 	@echo "${HR}"
 	@echo "INSTALL NEEDED TOOLS FOR BUILD"
 	@echo "${HR}"
